@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from laravel.com/docs/11.x/artisan by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+
+        <title>Artisan Console - Laravel 11.x - The PHP Framework For Web Artisans</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+        <link rel="canonical" href="artisan.html">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta name="description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://laravel.com/">
+    <meta property="og:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="og:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="og:image" content="../../img/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://laravel.com/">
+    <meta property="twitter:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="twitter:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="twitter:image" content="../../img/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://laravel.com/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://laravel.com/img/favicon/safari-pinned-tab.svg" color="#ff2d20">
+    <link rel="shortcut icon" href="https://laravel.com/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ff2d20">
+    <meta name="msapplication-config" content="https://laravel.com/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+
+    <link rel="preconnect" href="https://e3mirnpjh5-dsn.algolia.net/" crossorigin />
+
+    <link rel="stylesheet" href="../../../use.typekit.net/ins2wgm.css">
+    <link rel="preload" as="style" href="../../build/assets/app-6e52703b.css" /><link rel="modulepreload" href="../../build/assets/app-70a5a3a6.js" /><link rel="modulepreload" href="../../build/assets/docs-45166933.js" /><link rel="stylesheet" href="../../build/assets/app-6e52703b.css" /><script type="module" src="../../build/assets/app-70a5a3a6.js"></script><script type="module" src="../../build/assets/docs-45166933.js"></script>
+            <!-- Fathom - beautiful, simple website analytics -->
+        <script src="../../../cdn.usefathom.com/script.js" data-site="DVMEKBYF" defer></script>
+        <!-- / Fathom -->
+
+        <!-- Clearbit -->
+        <script async src="../../../tag.clearbitscripts.com/v1/pk_97d2bf69f817feb07be42fcda1460119/tags.js" referrerpolicy="strict-origin-when-cross-origin"></script>
+    
+    
+    <script>
+        const alwaysLightMode = false;
+    </script>
+
+    <script>
+    function updateTheme() {
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'system';
+        }
+
+        switch (localStorage.theme) {
+            case 'system':
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+
+                document.documentElement.setAttribute('color-theme', 'system');
+                break;
+
+            case 'dark':
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('color-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                break;
+
+            case 'light':
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('color-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                break;
+        }
+
+        updateThemeAndSchemeColor();
+    }
+
+    function updateThemeAndSchemeColor() {
+        if (! alwaysLightMode) {
+            if (document.documentElement.classList.contains('dark')) {
+                document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'dark');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#171923');
+
+                return;
+            }
+
+            document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'light');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
+        }
+    }
+
+    updateTheme();
+</script>
+
+    </head>
+<body
+    x-data="{
+        navIsOpen: false,
+    }"
+    class="w-full h-full font-sans antialiased text-gray-900 language-php"
+    data-instant-intensity="0"
+>
+
+    <a
+    id="skip-to-content-link"
+    href="#main-content"
+    class="absolute bg-gray-100 px-4 py-2 top-3 left-3 text-gray-700 shadow-xl"
+>
+    Skip to content
+</a>
+
+    <div class="hidden lg:flex items-center justify-center bg-gradient-to-b from-red-500 to-red-600 p-2 text-center text-white text-sm h-9">
+    <template id="news-herd">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" stroke-linecap="round" fill="none" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
+              <path d="M7 8v1" />
+              <path d="M17 8v1" />
+              <path d="M12.5 4c-.654 1.486 -1.26 3.443 -1.5 9h2.5c-.19 2.867 .094 5.024 .5 7" />
+              <path d="M7 15.5c3.667 2 6.333 2 10 0" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Get started with PHP and Laravel faster than ever using <a href="https://herd.laravel.com/" class="underline">Laravel Herd</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Join us in Dallas, TX! Tickets are now available for <a href="https://laracon.us/" class="underline">Laracon US</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-in">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to India! Tickets are now available for <a href="https://laracon.in/" class="underline">Laracon IN</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-eu">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to Europe! Tickets are now available for <a href="https://laracon.eu/" class="underline">Laracon EU</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-au">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go down under! Tickets are now available for <a href="https://laracon.au/" class="underline">Laracon AU</a>.
+        </div>
+    </template>
+
+    <template id="news-forge">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Servers with PHP 8.3 are now available for provisioning via <a href="https://forge.laravel.com/" class="underline">Laravel Forge</a>.
+        </div>
+    </template>
+
+    <template id="news-vapor">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Deploy Laravel with the infinite scale of serverless using <a href="https://vapor.laravel.com/" class="underline">Laravel Vapor</a>.
+        </div>
+    </template>
+
+    <template id="news-cloud">
+        
+
+        <div class="mt-px ml-1">
+            Join the waitlist for <a href="https://cloud.laravel.com/" class="underline">Laravel Cloud</a>, the future of shipping.
+        </div>
+    </template>
+
+    <template id="news-pulse">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline">Laravel Pulse</a>.
+        </div>
+    </template>
+
+    <template id="news-reverb">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3.707 6.293l2.586 -2.586a1 1 0 0 1 1.414 0l5.586 5.586a1 1 0 0 1 0 1.414l-2.586 2.586a1 1 0 0 1 -1.414 0l-5.586 -5.586a1 1 0 0 1 0 -1.414z" />
+              <path d="M6 10l-3 3l3 3l3 -3" />
+              <path d="M10 6l3 -3l3 3l-3 3" />
+              <path d="M12 12l1.5 1.5" />
+              <path d="M14.5 17a2.5 2.5 0 0 0 2.5 -2.5" />
+              <path d="M15 21a6 6 0 0 0 6 -6" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Incoming transmission received. <a href="https://reverb.laravel.com/" class="underline">Laravel Reverb</a> is now available!
+        </div>
+    </template>
+
+    <template id="news-nova">
+        <div>
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Take your administration backend to another dimension with <a href="https://nova.laravel.com/" class="underline">Laravel Nova</a>.
+        </div>
+    </template>
+
+    <template id="news-careers">
+        <div>
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Laravel is hiring! <a href="https://laravel.com/careers" class="underline">Help us build the future of Laravel</a>.
+        </div>
+
+    </template>
+</div>
+<script>
+    const activeNewsTemplate = document.getElementById(
+        'news-'+JSON.parse('[\u0022cloud\u0022]')[Math.floor(Math.random() * 1)]
+    )
+
+    activeNewsTemplate.replaceWith(activeNewsTemplate.content)
+</script>
+
+    <div class="relative dark:bg-dark-700" id="docsScreen">
+        <div class="relative lg:flex lg:items-start">
+            <aside class="hidden fixed top-0 bottom-0 left-0 z-20 w-16 bg-gradient-to-b from-gray-100 to-white transition-all duration-300 lg:sticky lg:w-80 lg:shrink-0 lg:flex lg:flex-col lg:justify-end lg:items-end 2xl:max-w-lg 2xl:w-full dark:from-dark-800 dark:to-dark-700">
+                <div class="relative max-h-screen overflow-auto flex-1 flex flex-col xl:w-80">
+                    <a href="https://laravel.com/" class="flex items-center py-8 px-4 lg:px-8 xl:px-16">
+                        <img
+                            class="w-8 h-8 shrink-0 transition-all duration-300 lg:w-12 lg:h-12"
+                            src="https://laravel.com/img/logomark.min.svg"
+                            alt="Laravel"
+                            width="50"
+                            height="52"
+                        >
+                        <img
+                            src="https://laravel.com/img/logotype.min.svg"
+                            alt="Laravel"
+                            class="hidden ml-4 lg:block"
+                            width="114"
+                            height="29"
+                        >
+                    </a>
+                    <div class="px-4 pb-10 lg:px-8 xl:px-16">
+                        <nav id="indexed-nav" class="hidden lg:block lg:mt-4">
+                            <div class="docs_sidebar">
+                                <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li>
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>Digging Deeper</h2>
+<ul>
+<li class="active">
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li>
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                            </div>
+                        </nav>
+
+                        
+                        <template id="promote-forge">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Forge:</span> create and manage PHP 8 servers. Deploy your Laravel applications in seconds. <a class="underline text-red-600" href="https://forge.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-vapor">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Vapor:</span> experience extreme scale on a dedicated serverless platform for Laravel. <a class="underline text-red-600" href="https://vapor.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-nova">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Nova:</span> The next generation of Nova is <a class="underline text-red-600" href="https://nova.laravel.com/">now available</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-pulse">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Pulse:</span> How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline text-red-600">Laravel Pulse</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-reverb">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Reverb:</span> You can easily build dynamic, real-time Laravel applications using WebSockets. <a href="https://reverb.laravel.com/" class="underline text-red-600">Laravel Reverb</a> is now available!
+                            </div>
+                        </template>
+                        <script>
+                            const activePromotionTemplate = document.getElementById(
+                                'promote-'+JSON.parse('[\u0022forge\u0022,\u0022vapor\u0022,\u0022nova\u0022,\u0022pulse\u0022,\u0022reverb\u0022]')[Math.floor(Math.random() * 5)]
+                            )
+
+                            activePromotionTemplate.replaceWith(activePromotionTemplate.content)
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <header
+                class="lg:hidden"
+                @keydown.window.escape="navIsOpen = false"
+                @click.away="navIsOpen = false"
+            >
+                <div class="relative mx-auto w-full py-10 bg-white transition duration-200 dark:bg-dark-700">
+                    <div class="mx-auto px-8 sm:px-16 flex items-center justify-between">
+                        <a href="https://laravel.com/" class="flex items-center">
+                            <img class="" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="50" height="52">
+                            <img class="hidden ml-5 sm:block" src="https://laravel.com/img/logotype.min.svg" alt="Laravel" width="114" height="29">
+                        </a>
+                        <div class="flex-1 flex items-center justify-end">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                            <button class="ml-2 relative w-10 h-10 p-2 text-red-600 lg:hidden focus:outline-none focus:shadow-outline" aria-label="Menu" @click.prevent="navIsOpen = !navIsOpen">
+                                <svg x-show="! navIsOpen" x-transition.opacity class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                <svg x-show="navIsOpen" x-transition.opacity x-cloak class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <span :class="{ 'shadow-sm': navIsOpen }" class="absolute inset-0 z-20 pointer-events-none"></span>
+                </div>
+                <div
+                    x-show="navIsOpen"
+                    x-transition:enter="duration-150"
+                    x-transition:leave="duration-100 ease-in"
+                    x-cloak
+                >
+                    <nav
+                        x-show="navIsOpen"
+                        x-cloak
+                        class="absolute w-full transform origin-top shadow-sm z-10"
+                        x-transition:enter="duration-150 ease-out"
+                        x-transition:enter-start="opacity-0 -translate-y-8 scale-75"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="duration-100 ease-in"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-8 scale-75"
+                    >
+                        <div class="relative p-8 bg-white docs_sidebar dark:bg-dark-600">
+                            <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li>
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>Digging Deeper</h2>
+<ul>
+<li class="active">
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li>
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <section class="flex-1 dark:bg-dark-700">
+                <div class="max-w-screen-lg px-8 sm:px-16 lg:px-24">
+                    <div class="flex flex-col items-end border-b border-gray-200 py-1 transition-colors dark:border-gray-700 lg:mt-8 lg:flex-row-reverse">
+                        <div class="hidden lg:flex items-center justify-center ml-8">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="w-full lg:w-40 lg:pl-12">
+                            <div>
+                                <label class="text-gray-600 text-xs tracking-widest uppercase dark:text-gray-500" for="version-switcher">Version</label>
+                                <div x-data class="relative w-full bg-white transition-all duration-500 focus-within:border-gray-600 dark:bg-gray-800">
+                                    <select
+                                        id="version-switcher"
+                                        aria-label="Laravel version"
+                                        class="appearance-none flex-1 w-full px-0 py-1 placeholder-gray-900 tracking-wide bg-white border-transparent focus:outline-none dark:bg-dark-700 dark:text-gray-400 dark:placeholder-gray-500"
+                                        @change="window.location = $event.target.value"
+                                    >
+                                                                                    <option  value="https://laravel.com/docs/master/artisan">Master</option>
+                                                                                    <option selected value="artisan.html">11.x</option>
+                                                                                    <option  value="https://laravel.com/docs/10.x/artisan">10.x</option>
+                                                                                    <option  value="https://laravel.com/docs/9.x/artisan">9.x</option>
+                                                                                    <option  value="https://laravel.com/docs/8.x/artisan">8.x</option>
+                                                                                    <option  value="https://laravel.com/docs/7.x/artisan">7.x</option>
+                                                                                    <option  value="https://laravel.com/docs/6.x/artisan">6.x</option>
+                                                                                    <option  value="https://laravel.com/docs/5.8/artisan">5.8</option>
+                                                                                    <option  value="https://laravel.com/docs/5.7/artisan">5.7</option>
+                                                                                    <option  value="https://laravel.com/docs/5.6/artisan">5.6</option>
+                                                                                    <option  value="https://laravel.com/docs/5.5/artisan">5.5</option>
+                                                                                    <option  value="https://laravel.com/docs/5.4/artisan">5.4</option>
+                                                                                    <option  value="https://laravel.com/docs/5.3/artisan">5.3</option>
+                                                                                    <option  value="https://laravel.com/docs/5.2/artisan">5.2</option>
+                                                                                    <option  value="https://laravel.com/docs/5.1/artisan">5.1</option>
+                                                                                    <option  value="https://laravel.com/docs/5.0/artisan">5.0</option>
+                                                                                    <option  value="https://laravel.com/docs/4.2/artisan">4.2</option>
+                                                                            </select>
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none dark:hidden" src="https://laravel.com/img/icons/drop_arrow.min.svg" alt="" width="10" height="10">
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none hidden dark:block" src="https://laravel.com/img/icons/drop_arrow.dark.min.svg" alt="" width="10" height="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-8 flex items-center justify-end w-full h-10 lg:mt-0">
+                            <div class="flex-1 flex items-center">
+                                <button id="docsearch" class="text-gray-800 transition-colors dark:text-gray-400 w-full"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="mt-8 md:mt-16">
+                        <section class="docs_main max-w-prose">
+                            
+                            
+                            <div id="main-content">
+    <h1>Artisan Console</h1>
+<ul>
+<li>
+<a href="#introduction">Introduction</a>
+<ul>
+<li>
+<a href="#tinker">Tinker (REPL)</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#writing-commands">Writing Commands</a>
+<ul>
+<li>
+<a href="#generating-commands">Generating Commands</a>
+</li>
+<li>
+<a href="#command-structure">Command Structure</a>
+</li>
+<li>
+<a href="#closure-commands">Closure Commands</a>
+</li>
+<li>
+<a href="#isolatable-commands">Isolatable Commands</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#defining-input-expectations">Defining Input Expectations</a>
+<ul>
+<li>
+<a href="#arguments">Arguments</a>
+</li>
+<li>
+<a href="#options">Options</a>
+</li>
+<li>
+<a href="#input-arrays">Input Arrays</a>
+</li>
+<li>
+<a href="#input-descriptions">Input Descriptions</a>
+</li>
+<li>
+<a href="#prompting-for-missing-input">Prompting for Missing Input</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#command-io">Command I/O</a>
+<ul>
+<li>
+<a href="#retrieving-input">Retrieving Input</a>
+</li>
+<li>
+<a href="#prompting-for-input">Prompting for Input</a>
+</li>
+<li>
+<a href="#writing-output">Writing Output</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#registering-commands">Registering Commands</a>
+</li>
+<li>
+<a href="#programmatically-executing-commands">Programmatically Executing Commands</a>
+<ul>
+<li>
+<a href="#calling-commands-from-other-commands">Calling Commands From Other Commands</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#signal-handling">Signal Handling</a>
+</li>
+<li>
+<a href="#stub-customization">Stub Customization</a>
+</li>
+<li>
+<a href="#events">Events</a>
+</li>
+</ul>
+<h2 id="introduction"><a href="#introduction">Introduction</a></h2>
+<p>Artisan is the command line interface included with Laravel. Artisan exists at the root of your application as the <code>artisan</code> script and provides a number of helpful commands that can assist you while you build your application. To view a list of all available Artisan commands, you may use the <code>list</code> command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">list</span></div></code></pre>
+</div>
+<p>Every command also includes a &quot;help&quot; screen which displays and describes the command's available arguments and options. To view a help screen, precede the name of the command with <code>help</code>:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">help</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">migrate</span></div></code></pre>
+</div>
+<h4 id="laravel-sail"><a href="#laravel-sail">Laravel Sail</a></h4>
+<p>If you are using <a href="sail.html">Laravel Sail</a> as your local development environment, remember to use the <code>sail</code> command line to invoke Artisan commands. Sail will execute your Artisan commands within your application's Docker containers:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">./vendor/bin/sail </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">list</span></div></code></pre>
+</div>
+<h3 id="tinker"><a href="#tinker">Tinker (REPL)</a></h3>
+<p>Laravel Tinker is a powerful REPL for the Laravel framework, powered by the <a href="https://github.com/bobthecow/psysh">PsySH</a> package.</p>
+<h4 id="installation"><a href="#installation">Installation</a></h4>
+<p>All Laravel applications include Tinker by default. However, you may install Tinker using Composer if you have previously removed it from your application:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">composer </span><span style="color: #BFC7D5;">require</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">laravel/tinker</span></div></code></pre>
+</div>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+Looking for hot reloading, multiline code editing, and autocompletion when interacting with your Laravel application? Check out <a href="https://tinkerwell.app/">Tinkerwell</a>!</p>
+</div>
+<h4 id="usage"><a href="#usage">Usage</a></h4>
+<p>Tinker allows you to interact with your entire Laravel application on the command line, including your Eloquent models, jobs, events, and more. To enter the Tinker environment, run the <code>tinker</code> Artisan command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">tinker</span></div></code></pre>
+</div>
+<p>You can publish Tinker's configuration file using the <code>vendor:publish</code> command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">vendor:publish</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--provider=</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #C3E88D;">Laravel\Tinker\TinkerServiceProvider</span><span style="color: #D9F5DD;">&quot;</span></div></code></pre>
+</div>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+The <code>dispatch</code> helper function and <code>dispatch</code> method on the <code>Dispatchable</code> class depends on garbage collection to place the job on the queue. Therefore, when using tinker, you should use <code>Bus::dispatch</code> or <code>Queue::push</code> to dispatch jobs.</p>
+</div>
+<h4 id="command-allow-list"><a href="#command-allow-list">Command Allow List</a></h4>
+<p>Tinker utilizes an &quot;allow&quot; list to determine which Artisan commands are allowed to be run within its shell. By default, you may run the <code>clear-compiled</code>, <code>down</code>, <code>env</code>, <code>inspire</code>, <code>migrate</code>, <code>migrate:install</code>, <code>up</code>, and <code>optimize</code> commands. If you would like to allow more commands you may add them to the <code>commands</code> array in your <code>tinker.php</code> configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">commands</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> App\Console\Commands\ExampleCommand::class,</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h4 id="classes-that-should-not-be-aliased"><a href="#classes-that-should-not-be-aliased">Classes That Should Not Be Aliased</a></h4>
+<p>Typically, Tinker automatically aliases classes as you interact with them in Tinker. However, you may wish to never alias some classes. You may accomplish this by listing the classes in the <code>dont_alias</code> array of your <code>tinker.php</code> configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">dont_alias</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h2 id="writing-commands"><a href="#writing-commands">Writing Commands</a></h2>
+<p>In addition to the commands provided with Artisan, you may build your own custom commands. Commands are typically stored in the <code>app/Console/Commands</code> directory; however, you are free to choose your own storage location as long as your commands can be loaded by Composer.</p>
+<h3 id="generating-commands"><a href="#generating-commands">Generating Commands</a></h3>
+<p>To create a new command, you may use the <code>make:command</code> Artisan command. This command will create a new command class in the <code>app/Console/Commands</code> directory. Don't worry if this directory does not exist in your application - it will be created the first time you run the <code>make:command</code> Artisan command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">make:command</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">SendEmails</span></div></code></pre>
+</div>
+<h3 id="command-structure"><a href="#command-structure">Command Structure</a></h3>
+<p>After generating your command, you should define appropriate values for the <code>signature</code> and <code>description</code> properties of the class. These properties will be used when displaying your command on the <code>list</code> screen. The <code>signature</code> property also allows you to define <a href="#defining-input-expectations">your command's input expectations</a>. The <code>handle</code> method will be called when your command is executed. You may place your command logic in this method.</p>
+<p>Let's take a look at an example command. Note that we are able to request any dependencies we need via the command's <code>handle</code> method. The Laravel <a href="container.html">service container</a> will automatically inject all dependencies that are type-hinted in this method's signature:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Console\Commands;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Support\</span><span style="color: #FFCB8B;">DripEmailer</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Console\</span><span style="color: #FFCB8B;">Command</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">SendEmails</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">extends</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">Command</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;">     *</span></div><div class='line'><span style="color: #697098;">     * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * The console command description.</span></div><div class='line'><span style="color: #697098;">     *</span></div><div class='line'><span style="color: #697098;">     * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$description</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Send a marketing email to a user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Execute the console command.</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">DripEmailer</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$drip</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #BEC5D4;">$drip</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">send</span><span style="color: #BFC7D5;">(</span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">find</span><span style="color: #BFC7D5;">(</span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">argument</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)));</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+For greater code reuse, it is good practice to keep your console commands light and let them defer to application services to accomplish their tasks. In the example above, note that we inject a service class to do the &quot;heavy lifting&quot; of sending the e-mails.</p>
+</div>
+<h4 id="exit-codes"><a href="#exit-codes">Exit Codes</a></h4>
+<p>If nothing is returned from the <code>handle</code> method and the command executes successfully, the command will exit with a <code>0</code> exit code, indicating success. However, the <code>handle</code> method may optionally return an integer to manually specify command's exit code:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">error</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something went wrong.</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #F78C6C;">1</span><span style="color: #BFC7D5;">;</span></div></code></pre>
+<p>If you would like to &quot;fail&quot; the command from any method within the command, you may utilize the <code>fail</code> method. The <code>fail</code> method will immediately terminate execution of the command and return an exit code of <code>1</code>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">fail</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something went wrong.</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h3 id="closure-commands"><a href="#closure-commands">Closure Commands</a></h3>
+<p>Closure based commands provide an alternative to defining console commands as classes. In the same way that route closures are an alternative to controllers, think of command closures as an alternative to command classes.</p>
+<p>Even though the <code>routes/console.php</code> file does not define HTTP routes, it defines console based entry points (routes) into your application. Within this file, you may define all of your closure based console commands using the <code>Artisan::command</code> method. The <code>command</code> method accepts two arguments: the <a href="#defining-input-expectations">command signature</a> and a closure which receives the command's arguments and options:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #C3E88D;">Sending email to: {</span><span style="color: #BEC5D4;">$user</span><span style="color: #C3E88D;">}!</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>The closure is bound to the underlying command instance, so you have full access to all of the helper methods you would typically be able to access on a full command class.</p>
+<h4 id="type-hinting-dependencies"><a href="#type-hinting-dependencies">Type-Hinting Dependencies</a></h4>
+<p>In addition to receiving your command's arguments and options, command closures may also type-hint additional dependencies that you would like resolved out of the <a href="container.html">service container</a>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Support\</span><span style="color: #FFCB8B;">DripEmailer</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">DripEmailer</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$drip</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$drip</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">send</span><span style="color: #BFC7D5;">(</span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">find</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">));</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<h4 id="closure-command-descriptions"><a href="#closure-command-descriptions">Closure Command Descriptions</a></h4>
+<p>When defining a closure based command, you may use the <code>purpose</code> method to add a description to the command. This description will be displayed when you run the <code>php artisan list</code> or <code>php artisan help</code> commands:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">purpose</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Send a marketing email to a user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h3 id="isolatable-commands"><a href="#isolatable-commands">Isolatable Commands</a></h3>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+To utilize this feature, your application must be using the <code>memcached</code>, <code>redis</code>, <code>dynamodb</code>, <code>database</code>, <code>file</code>, or <code>array</code> cache driver as your application's default cache driver. In addition, all servers must be communicating with the same central cache server.</p>
+</div>
+<p>Sometimes you may wish to ensure that only one instance of a command can run at a time. To accomplish this, you may implement the <code>Illuminate\Contracts\Console\Isolatable</code> interface on your command class:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Console\Commands;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Console\</span><span style="color: #FFCB8B;">Command</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Contracts\Console\</span><span style="color: #FFCB8B;">Isolatable</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">SendEmails</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">extends</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">Command</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">implements</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">Isolatable</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>When a command is marked as <code>Isolatable</code>, Laravel will automatically add an <code>--isolated</code> option to the command. When the command is invoked with that option, Laravel will ensure that no other instances of that command are already running. Laravel accomplishes this by attempting to acquire an atomic lock using your application's default cache driver. If other instances of the command are running, the command will not execute; however, the command will still exit with a successful exit status code:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--isolated</span></div></code></pre>
+</div>
+<p>If you would like to specify the exit status code that the command should return if it is not able to execute, you may provide the desired status code via the <code>isolated</code> option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--isolated=12</span></div></code></pre>
+</div>
+<h4 id="lock-id"><a href="#lock-id">Lock ID</a></h4>
+<p>By default, Laravel will use the command's name to generate the string key that is used to acquire the atomic lock in your application's cache. However, you may customize this key by defining an <code>isolatableId</code> method on your Artisan command class, allowing you to integrate the command's arguments or options into the key:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Get the isolatable ID for the command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">isolatableId</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">argument</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+</div>
+<h4 id="lock-expiration-time"><a href="#lock-expiration-time">Lock Expiration Time</a></h4>
+<p>By default, isolation locks expire after the command is finished. Or, if the command is interrupted and unable to finish, the lock will expire after one hour. However, you may adjust the lock expiration time by defining a <code>isolationLockExpiresAt</code> method on your command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">DateTimeInterface</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">DateInterval</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Determine when an isolation lock expires for the command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">isolationLockExpiresAt</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">DateTimeInterface</span><span style="color: #BFC7D5;">|</span><span style="color: #FFCB6B;">DateInterval</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">now</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">addMinutes</span><span style="color: #BFC7D5;">(</span><span style="color: #F78C6C;">5</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+</div>
+<h2 id="defining-input-expectations"><a href="#defining-input-expectations">Defining Input Expectations</a></h2>
+<p>When writing console commands, it is common to gather input from the user through arguments or options. Laravel makes it very convenient to define the input you expect from the user using the <code>signature</code> property on your commands. The <code>signature</code> property allows you to define the name, arguments, and options for the command in a single, expressive, route-like syntax.</p>
+<h3 id="arguments"><a href="#arguments">Arguments</a></h3>
+<p>All user supplied arguments and options are wrapped in curly braces. In the following example, the command defines one required argument: <code>user</code>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;"> *</span></div><div class='line'><span style="color: #697098;"> * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div></code></pre>
+<p>You may also make arguments optional or define default values for arguments:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Optional argument...</span></div><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user?}</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Optional argument with default value...</span></div><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user=foo}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<h3 id="options"><a href="#options">Options</a></h3>
+<p>Options, like arguments, are another form of user input. Options are prefixed by two hyphens (<code>--</code>) when they are provided via the command line. There are two types of options: those that receive a value and those that don't. Options that don't receive a value serve as a boolean &quot;switch&quot;. Let's take a look at an example of this type of option:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;"> *</span></div><div class='line'><span style="color: #697098;"> * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user} {--queue}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div></code></pre>
+<p>In this example, the <code>--queue</code> switch may be specified when calling the Artisan command. If the <code>--queue</code> switch is passed, the value of the option will be <code>true</code>. Otherwise, the value will be <code>false</code>:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--queue</span></div></code></pre>
+</div>
+<h4 id="options-with-values"><a href="#options-with-values">Options With Values</a></h4>
+<p>Next, let's take a look at an option that expects a value. If the user must specify a value for an option, you should suffix the option name with a <code>=</code> sign:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;"> *</span></div><div class='line'><span style="color: #697098;"> * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user} {--queue=}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div></code></pre>
+<p>In this example, the user may pass a value for the option like so. If the option is not specified when invoking the command, its value will be <code>null</code>:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--queue=default</span></div></code></pre>
+</div>
+<p>You may assign default values to options by specifying the default value after the option name. If no option value is passed by the user, the default value will be used:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user} {--queue=default}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<h4 id="option-shortcuts"><a href="#option-shortcuts">Option Shortcuts</a></h4>
+<p>To assign a shortcut when defining an option, you may specify it before the option name and use the <code>|</code> character as a delimiter to separate the shortcut from the full option name:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user} {--Q|queue}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<p>When invoking the command on your terminal, option shortcuts should be prefixed with a single hyphen and no <code>=</code> character should be included when specifying a value for the option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">-Qdefault</span></div></code></pre>
+</div>
+<h3 id="input-arrays"><a href="#input-arrays">Input Arrays</a></h3>
+<p>If you would like to define arguments or options to expect multiple input values, you may use the <code>*</code> character. First, let's take a look at an example that specifies such an argument:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user*}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<p>When calling this method, the <code>user</code> arguments may be passed in order to the command line. For example, the following command will set the value of <code>user</code> to an array with <code>1</code> and <code>2</code> as its values:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">1</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">2</span></div></code></pre>
+</div>
+<p>This <code>*</code> character can be combined with an optional argument definition to allow zero or more instances of an argument:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user?*}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<h4 id="option-arrays"><a href="#option-arrays">Option Arrays</a></h4>
+<p>When defining an option that expects multiple input values, each option value passed to the command should be prefixed with the option name:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {--id=*}</span><span style="color: #D9F5DD;">&#39;</span></div></code></pre>
+<p>Such a command may be invoked by passing multiple <code>--id</code> arguments:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">mail:send</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--id=1</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--id=2</span></div></code></pre>
+</div>
+<h3 id="input-descriptions"><a href="#input-descriptions">Input Descriptions</a></h3>
+<p>You may assign descriptions to input arguments and options by separating the argument name from the description using a colon. If you need a little extra room to define your command, feel free to spread the definition across multiple lines:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;"> *</span></div><div class='line'><span style="color: #697098;"> * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span></div><div class='line'><span style="color: #C3E88D;">                        {user : The ID of the user}</span></div><div class='line'><span style="color: #C3E88D;">                        {--queue : Whether the job should be queued}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div></code></pre>
+<h3 id="prompting-for-missing-input"><a href="#prompting-for-missing-input">Prompting for Missing Input</a></h3>
+<p>If your command contains required arguments, the user will receive an error message when they are not provided. Alternatively, you may configure your command to automatically prompt the user when required arguments are missing by implementing the <code>PromptsForMissingInput</code> interface:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Console\Commands;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Console\</span><span style="color: #FFCB8B;">Command</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Contracts\Console\</span><span style="color: #FFCB8B;">PromptsForMissingInput</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">SendEmails</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">extends</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">Command</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">implements</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">PromptsForMissingInput</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * The name and signature of the console command.</span></div><div class='line'><span style="color: #697098;">     *</span></div><div class='line'><span style="color: #697098;">     * </span><span style="color: #C792EA;">@var</span><span style="color: #697098;"> </span><span style="color: #C792EA;">string</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signature</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send {user}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>If Laravel needs to gather a required argument from the user, it will automatically ask the user for the argument by intelligently phrasing the question using either the argument name or description. If you wish to customize the question used to gather the required argument, you may implement the <code>promptForMissingArgumentsUsing</code> method, returning an array of questions keyed by the argument names:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Prompt for missing input arguments using the returned questions.</span></div><div class='line'><span style="color: #697098;"> *</span></div><div class='line'><span style="color: #697098;"> * </span><span style="color: #C792EA;">@return</span><span style="color: #697098;"> </span><span style="color: #C792EA;">array</span><span style="color: #697098;">&lt;</span><span style="color: #C792EA;">string</span><span style="color: #697098;">, string&gt;</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">promptForMissingArgumentsUsing</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">array</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Which user ID should receive the mail?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ];</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>You may also provide placeholder text by using a tuple containing the question and placeholder:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Which user ID should receive the mail?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">E.g. 123</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">];</span></div></code></pre>
+<p>If you would like complete control over the prompt, you may provide a closure that should prompt the user and return their answer:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> Laravel\Prompts\</span><span style="color: #FFCB8B;">search</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">fn</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> =&gt; </span><span style="color: #82AAFF;">search</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #82AAFF;">        label</span><span style="color: #BFC7D5;">:</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Search for a user:</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #82AAFF;">        placeholder</span><span style="color: #BFC7D5;">:</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">E.g. Taylor Otwell</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #82AAFF;">        options</span><span style="color: #BFC7D5;">:</span><span style="color: #82AAFF;"> </span><span style="color: #C792EA;">fn</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #BFC7D5;">$</span><span style="color: #BEC5D4;">value</span><span style="color: #D9F5DD;">)</span><span style="color: #82AAFF;"> </span><span style="color: #BFC7D5;">=&gt;</span><span style="color: #82AAFF;"> </span><span style="color: #89DDFF;">strlen</span><span style="color: #BFC7D5;">($</span><span style="color: #BEC5D4;">value</span><span style="color: #BFC7D5;">)</span><span style="color: #82AAFF;"> </span><span style="color: #C792EA;">&gt;</span><span style="color: #82AAFF;"> </span><span style="color: #F78C6C;">0</span></div><div class='line'><span style="color: #82AAFF;">            </span><span style="color: #89DDFF;">?</span><span style="color: #82AAFF;"> </span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">where</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">like</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&quot;</span><span style="color: #C3E88D;">%</span><span style="color: #BFC7D5;">{$</span><span style="color: #BEC5D4;">value</span><span style="color: #BFC7D5;">}</span><span style="color: #C3E88D;">%</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">pluck</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">all</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #82AAFF;">            </span><span style="color: #89DDFF;">:</span><span style="color: #82AAFF;"> </span><span style="color: #BFC7D5;">[]</span></div><div class='line'><span style="color: #82AAFF;">    </span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">];</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+The comprehensive <a href="prompts.html">Laravel Prompts</a> documentation includes additional information on the available prompts and their usage.</p>
+</div>
+<p>If you wish to prompt the user to select or enter <a href="#options">options</a>, you may include prompts in your command's <code>handle</code> method. However, if you only wish to prompt the user when they have also been automatically prompted for missing arguments, then you may implement the <code>afterPromptingForMissingArguments</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Symfony\Component\Console\Input\</span><span style="color: #FFCB8B;">InputInterface</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Symfony\Component\Console\Output\</span><span style="color: #FFCB8B;">OutputInterface</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> Laravel\Prompts\</span><span style="color: #FFCB8B;">confirm</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Perform actions after the user was prompted for missing arguments.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">protected</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">afterPromptingForMissingArguments</span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">InputInterface</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$input</span><span style="color: #BFC7D5;">, </span><span style="color: #FFCB8B;">OutputInterface</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$output</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$input</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">setOption</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #82AAFF;">confirm</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #82AAFF;">        label</span><span style="color: #BFC7D5;">:</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Would you like to queue the mail?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #82AAFF;">        default</span><span style="color: #BFC7D5;">:</span><span style="color: #82AAFF;"> </span><span style="color: #BFC7D5;">$</span><span style="color: #FF5572;">this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">option</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #82AAFF;">    </span><span style="color: #BFC7D5;">));</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<h2 id="command-io"><a href="#command-io">Command I/O</a></h2>
+<h3 id="retrieving-input"><a href="#retrieving-input">Retrieving Input</a></h3>
+<p>While your command is executing, you will likely need to access the values for the arguments and options accepted by your command. To do so, you may use the <code>argument</code> and <code>option</code> methods. If an argument or option does not exist, <code>null</code> will be returned:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Execute the console command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$userId</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">argument</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>If you need to retrieve all of the arguments as an <code>array</code>, call the <code>arguments</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$arguments</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">arguments</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>Options may be retrieved just as easily as arguments using the <code>option</code> method. To retrieve all of the options as an array, call the <code>options</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Retrieve a specific option...</span></div><div class='line'><span style="color: #BEC5D4;">$queueName</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">option</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Retrieve all options as an array...</span></div><div class='line'><span style="color: #BEC5D4;">$options</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">options</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h3 id="prompting-for-input"><a href="#prompting-for-input">Prompting for Input</a></h3>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+<a href="prompts.html">Laravel Prompts</a> is a PHP package for adding beautiful and user-friendly forms to your command-line applications, with browser-like features including placeholder text and validation.</p>
+</div>
+<p>In addition to displaying output, you may also ask the user to provide input during the execution of your command. The <code>ask</code> method will prompt the user with the given question, accept their input, and then return the user's input back to your command:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Execute the console command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">ask</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your name?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>The <code>ask</code> method also accepts an optional second argument which specifies the default value that should be returned if no user input is provided:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">ask</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your name?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>The <code>secret</code> method is similar to <code>ask</code>, but the user's input will not be visible to them as they type in the console. This method is useful when asking for sensitive information such as passwords:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$password</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">secret</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is the password?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="asking-for-confirmation"><a href="#asking-for-confirmation">Asking for Confirmation</a></h4>
+<p>If you need to ask the user for a simple &quot;yes or no&quot; confirmation, you may use the <code>confirm</code> method. By default, this method will return <code>false</code>. However, if the user enters <code>y</code> or <code>yes</code> in response to the prompt, the method will return <code>true</code>.</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">if</span><span style="color: #BFC7D5;"> (</span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">confirm</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Do you wish to continue?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)) {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>If necessary, you may specify that the confirmation prompt should return <code>true</code> by default by passing <code>true</code> as the second argument to the <code>confirm</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">if</span><span style="color: #BFC7D5;"> (</span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">confirm</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Do you wish to continue?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">)) {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<h4 id="auto-completion"><a href="#auto-completion">Auto-Completion</a></h4>
+<p>The <code>anticipate</code> method can be used to provide auto-completion for possible choices. The user can still provide any answer, regardless of the auto-completion hints:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">anticipate</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your name?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Dayle</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<p>Alternatively, you may pass a closure as the second argument to the <code>anticipate</code> method. The closure will be called each time the user types an input character. The closure should accept a string parameter containing the user's input so far, and return an array of options for auto-completion:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">anticipate</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your address?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$input</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> Return auto-completion options...</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<h4 id="multiple-choice-questions"><a href="#multiple-choice-questions">Multiple Choice Questions</a></h4>
+<p>If you need to give the user a predefined set of choices when asking a question, you may use the <code>choice</code> method. You may set the array index of the default value to be returned if no option is chosen by passing the index as the third argument to the method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">choice</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your name?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Dayle</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$defaultIndex</span></div><div class='line'><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>In addition, the <code>choice</code> method accepts optional fourth and fifth arguments for determining the maximum number of attempts to select a valid response and whether multiple selections are permitted:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$name</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">choice</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">What is your name?</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Dayle</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$defaultIndex</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$maxAttempts</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">null</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$allowMultipleSelections</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">false</span></div><div class='line'><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h3 id="writing-output"><a href="#writing-output">Writing Output</a></h3>
+<p>To send output to the console, you may use the <code>line</code>, <code>info</code>, <code>comment</code>, <code>question</code>, <code>warn</code>, and <code>error</code> methods. Each of these methods will use appropriate ANSI colors for their purpose. For example, let's display some general information to the user. Typically, the <code>info</code> method will display in the console as green colored text:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Execute the console command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">The command was successful!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>To display an error message, use the <code>error</code> method. Error message text is typically displayed in red:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">error</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something went wrong!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>You may use the <code>line</code> method to display plain, uncolored text:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">line</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Display this on the screen</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>You may use the <code>newLine</code> method to display a blank line:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Write a single blank line...</span></div><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">newLine</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Write three blank lines...</span></div><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">newLine</span><span style="color: #BFC7D5;">(</span><span style="color: #F78C6C;">3</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="tables"><a href="#tables">Tables</a></h4>
+<p>The <code>table</code> method makes it easy to correctly format multiple rows / columns of data. All you need to do is provide the column names and the data for the table and Laravel will
+automatically calculate the appropriate width and height of the table for you:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">table</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #BFC7D5;">    [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Email</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">all</span><span style="color: #BFC7D5;">([</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">email</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">toArray</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="progress-bars"><a href="#progress-bars">Progress Bars</a></h4>
+<p>For long running tasks, it can be helpful to show a progress bar that informs users how complete the task is. Using the <code>withProgressBar</code> method, Laravel will display a progress bar and advance its progress for each iteration over a given iterable value:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BEC5D4;">$users</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withProgressBar</span><span style="color: #BFC7D5;">(</span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">all</span><span style="color: #BFC7D5;">(), </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">performTask</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>Sometimes, you may need more manual control over how a progress bar is advanced. First, define the total number of steps the process will iterate through. Then, advance the progress bar after processing each item:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$users</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">all</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BEC5D4;">$bar</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;output-&gt;</span><span style="color: #82AAFF;">createProgressBar</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">count</span><span style="color: #BFC7D5;">($</span><span style="color: #BEC5D4;">users</span><span style="color: #BFC7D5;">));</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BEC5D4;">$bar</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">start</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">foreach</span><span style="color: #BFC7D5;"> (</span><span style="color: #BEC5D4;">$users</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">as</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">) {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">performTask</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$bar</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">advance</span><span style="color: #BFC7D5;">();</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BEC5D4;">$bar</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">finish</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+For more advanced options, check out the <a href="https://symfony.com/doc/7.0/components/console/helpers/progressbar.html">Symfony Progress Bar component documentation</a>.</p>
+</div>
+<h2 id="registering-commands"><a href="#registering-commands">Registering Commands</a></h2>
+<p>By default, Laravel automatically registers all commands within the <code>app/Console/Commands</code> directory. However, you can instruct Laravel to scan other directories for Artisan commands using the <code>withCommands</code> method in your application's <code>bootstrap/app.php</code> file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withCommands</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #82AAFF;">__DIR__</span><span style="color: #89DDFF;">.</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">/../app/Domain/Orders/Commands</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">])</span></div></code></pre>
+<p>If necessary, you may also manually register commands by providing the command's class name to the <code>withCommands</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Domain\Orders\Commands\</span><span style="color: #FFCB8B;">SendEmails</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withCommands</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">SendEmails</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">])</span></div></code></pre>
+<p>When Artisan boots, all the commands in your application will be resolved by the <a href="container.html">service container</a> and registered with Artisan.</p>
+<h2 id="programmatically-executing-commands"><a href="#programmatically-executing-commands">Programmatically Executing Commands</a></h2>
+<p>Sometimes you may wish to execute an Artisan command outside of the CLI. For example, you may wish to execute an Artisan command from a route or controller. You may use the <code>call</code> method on the <code>Artisan</code> facade to accomplish this. The <code>call</code> method accepts either the command's signature name or class name as its first argument, and an array of command parameters as the second argument. The exit code will be returned:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Artisan</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Route</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">post</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">/user/{user}/mail</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$exitCode</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">    ]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>Alternatively, you may pass the entire Artisan command to the <code>call</code> method as a string:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send 1 --queue=default</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="passing-array-values"><a href="#passing-array-values">Passing Array Values</a></h4>
+<p>If your command defines an option that accepts an array, you may pass an array of values to that option:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Artisan</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Route</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">post</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">/mail</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$exitCode</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span><span style="color: #F78C6C;">5</span><span style="color: #BFC7D5;">, </span><span style="color: #F78C6C;">13</span><span style="color: #BFC7D5;">]</span></div><div class='line'><span style="color: #BFC7D5;">    ]);</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<h4 id="passing-boolean-values"><a href="#passing-boolean-values">Passing Boolean Values</a></h4>
+<p>If you need to specify the value of an option that does not accept string values, such as the <code>--force</code> flag on the <code>migrate:refresh</code> command, you should pass <code>true</code> or <code>false</code> as the value of the option:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BEC5D4;">$exitCode</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">migrate:refresh</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--force</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<h4 id="queueing-artisan-commands"><a href="#queueing-artisan-commands">Queueing Artisan Commands</a></h4>
+<p>Using the <code>queue</code> method on the <code>Artisan</code> facade, you may even queue Artisan commands so they are processed in the background by your <a href="queues.html">queue workers</a>. Before using this method, make sure you have configured your queue and are running a queue listener:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Artisan</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Route</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">post</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">/user/{user}/mail</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">queue</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">    ]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>Using the <code>onConnection</code> and <code>onQueue</code> methods, you may specify the connection or queue the Artisan command should be dispatched to:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">queue</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #F78C6C;">1</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onConnection</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">redis</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onQueue</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">commands</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h3 id="calling-commands-from-other-commands"><a href="#calling-commands-from-other-commands">Calling Commands From Other Commands</a></h3>
+<p>Sometimes you may wish to call other commands from an existing Artisan command. You may do so using the <code>call</code> method. This <code>call</code> method accepts the command name and an array of command arguments / options:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Execute the console command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #F78C6C;">1</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">    ]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>If you would like to call another console command and suppress all of its output, you may use the <code>callSilently</code> method. The <code>callSilently</code> method has the same signature as the <code>call</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">callSilently</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">mail:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #F78C6C;">1</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--queue</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<h2 id="signal-handling"><a href="#signal-handling">Signal Handling</a></h2>
+<p>As you may know, operating systems allow signals to be sent to running processes. For example, the <code>SIGTERM</code> signal is how operating systems ask a program to terminate. If you wish to listen for signals in your Artisan console commands and execute code when they occur, you may use the <code>trap</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;"> * Execute the console command.</span></div><div class='line'><span style="color: #697098;"> </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">()</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">trap</span><span style="color: #BFC7D5;">(</span><span style="color: #82AAFF;">SIGTERM</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">fn</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> =&gt; </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;shouldKeepRunning</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">false</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">while</span><span style="color: #BFC7D5;"> (</span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;shouldKeepRunning</span><span style="color: #BFC7D5;">) {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>To listen for multiple signals at once, you may provide an array of signals to the <code>trap</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">trap</span><span style="color: #BFC7D5;">([</span><span style="color: #82AAFF;">SIGTERM</span><span style="color: #BFC7D5;">, </span><span style="color: #82AAFF;">SIGQUIT</span><span style="color: #BFC7D5;">], </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">int</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$signal</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FF5572;">$this</span><span style="color: #89DDFF;">-&gt;shouldKeepRunning</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">false</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #82AAFF;">dump</span><span style="color: #BFC7D5;">($</span><span style="color: #BEC5D4;">signal</span><span style="color: #BFC7D5;">); </span><span style="color: #697098;">//</span><span style="color: #697098;"> SIGTERM / SIGQUIT</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<h2 id="stub-customization"><a href="#stub-customization">Stub Customization</a></h2>
+<p>The Artisan console's <code>make</code> commands are used to create a variety of classes, such as controllers, jobs, migrations, and tests. These classes are generated using &quot;stub&quot; files that are populated with values based on your input. However, you may want to make small changes to files generated by Artisan. To accomplish this, you may use the <code>stub:publish</code> command to publish the most common stubs to your application so that you can customize them:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">stub:publish</span></div></code></pre>
+</div>
+<p>The published stubs will be located within a <code>stubs</code> directory in the root of your application. Any changes you make to these stubs will be reflected when you generate their corresponding classes using Artisan's <code>make</code> commands.</p>
+<h2 id="events"><a href="#events">Events</a></h2>
+<p>Artisan dispatches three events when running commands: <code>Illuminate\Console\Events\ArtisanStarting</code>, <code>Illuminate\Console\Events\CommandStarting</code>, and <code>Illuminate\Console\Events\CommandFinished</code>. The <code>ArtisanStarting</code> event is dispatched immediately when Artisan starts running. Next, the <code>CommandStarting</code> event is dispatched immediately before a command runs. Finally, the <code>CommandFinished</code> event is dispatched once a command finishes executing.</p>
+
+                                <script async type="text/javascript" src="../../../cdn.carbonads.com/carbon83bb.js?serve=CKYILK3E&amp;placement=laravelcom" id="_carbonads_js"></script>
+</div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+<footer class="relative pt-12 dark:bg-dark-700">
+    <div class="max-w-screen-2xl mx-auto w-full px-8">
+        <div>
+            <a href="https://laravel.com/" class="inline-flex">
+                <img class="w-16 h-16" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="64" height="64" loading="lazy">
+            </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-12 md:gap-x-8 gap-y-12 sm:mt-12">
+            <div class="col-span-12 lg:col-span-4">
+                <p class="max-w-sm text-xs text-gray-700 sm:text-sm dark:text-gray-500">
+                    Laravel is a web application framework with expressive, elegant syntax. We believe development must
+                    be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain
+                    out of development by easing common tasks used in most web projects.</p>
+                <ul class="mt-6 flex items-center space-x-3">
+                    <li>
+                        <a href="https://x.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6" src="https://laravel.com/img/social/x.dark.min.svg" alt="X" width="24" height="20" loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6" src="https://laravel.com/img/social/x.min.svg" alt="X" width="24" height="20" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/github.dark.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/github.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.gg/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/discord.dark.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/discord.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.dark.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Highlights</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="releases.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Release Notes</a>
+                                </li>
+                                                            <li>
+                                    <a href="installation.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Getting Started</a>
+                                </li>
+                                                            <li>
+                                    <a href="routing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Routing</a>
+                                </li>
+                                                            <li>
+                                    <a href="blade.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Blade Templates</a>
+                                </li>
+                                                            <li>
+                                    <a href="authentication.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authentication</a>
+                                </li>
+                                                            <li>
+                                    <a href="authorization.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authorization</a>
+                                </li>
+                                                            <li>
+                                    <a href="artisan.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Artisan Console</a>
+                                </li>
+                                                            <li>
+                                    <a href="database.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Database</a>
+                                </li>
+                                                            <li>
+                                    <a href="eloquent.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Eloquent ORM</a>
+                                </li>
+                                                            <li>
+                                    <a href="testing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Testing</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Resources</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://bootcamp.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel Bootcamp</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracasts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel-news.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel News</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.us/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.au/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon AU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.eu/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon EU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.in/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon India</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larabelles.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Larabelles</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/careers"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Careers</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larajobs.com/?partner=5"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jobs</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/discuss"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forums</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/trademark"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Trademark</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Partners</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://vehikl.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vehikl</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://webreinvent.com/?utm_source=laravel&amp;utm_medium=laravel.com&amp;utm_campaign=footer-link"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">WebReinvent</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://tighten.co/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Tighten</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.bacancytechnology.com/hire-laravel-developer?utm_source=laravel&amp;utm_medium=partners.laravel&amp;utm_campaign=sponsors"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Bacancy</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://64robots.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">64 Robots</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://activelogic.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Active Logic</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.blackairplane.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Black Airplane</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.byte5.net/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Byte 5</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.curotec.com/services/technologies/laravel/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Curotec</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.cyber-duck.co.uk/how-we-work/technology/laravel?utm_source=Laravel%20Partner&amp;utm_medium=Sponsorship"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cyber-Duck</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://devsquad.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">DevSquad</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jump24.co.uk/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jump24</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://kirschbaumdevelopment.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Kirschbaum</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Ecosystem</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="starter-kits.html#laravel-breeze"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Breeze</a>
+                                </li>
+                                                            <li>
+                                    <a href="billing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cashier</a>
+                                </li>
+                                                            <li>
+                                    <a href="dusk.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Dusk</a>
+                                </li>
+                                                            <li>
+                                    <a href="broadcasting.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Echo</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://envoyer.io/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Envoyer</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://forge.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forge</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://herd.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Herd</a>
+                                </li>
+                                                            <li>
+                                    <a href="horizon.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Horizon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://inertiajs.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Inertia</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jetstream.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jetstream</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://livewire.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Livewire</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://nova.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Nova</a>
+                                </li>
+                                                            <li>
+                                    <a href="octane.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Octane</a>
+                                </li>
+                                                            <li>
+                                    <a href="pennant.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pennant</a>
+                                </li>
+                                                            <li>
+                                    <a href="pint.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pint</a>
+                                </li>
+                                                            <li>
+                                    <a href="prompts.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Prompts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://pulse.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pulse</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://reverb.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Reverb</a>
+                                </li>
+                                                            <li>
+                                    <a href="sail.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sail</a>
+                                </li>
+                                                            <li>
+                                    <a href="sanctum.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sanctum</a>
+                                </li>
+                                                            <li>
+                                    <a href="scout.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Scout</a>
+                                </li>
+                                                            <li>
+                                    <a href="socialite.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Socialite</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://spark.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Spark</a>
+                                </li>
+                                                            <li>
+                                    <a href="telescope.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Telescope</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://vapor.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vapor</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                    </div>
+        <div class="mt-10 border-t pt-6 pb-16 border-gray-200 dark:border-dark-500">
+            <p class="text-xs text-gray-700 dark:text-gray-400">
+                Laravel is a Trademark of Laravel Holdings Inc.<br />
+                Copyright &copy; 2011-2024 Laravel Holdings Inc.
+            </p>
+            <p class="mt-6 text-xs text-gray-700 dark:text-gray-400">
+                Code highlighting provided by <a href="https://torchlight.dev/">Torchlight</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var algolia_app_id = 'E3MIRNPJH5';
+    var algolia_search_key = '1fa3a8fec06eb1858d6ca137211225c0';
+    var version = '11.x';
+</script>
+
+<script>
+    var _gaq=[['_setAccount','UA-23865777-1'],['_trackPageview']];
+    (function(d,t){
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)
+    }(document,'script'));
+</script>
+
+<!-- HubSpot -->
+<script type="text/javascript" id="hs-script-loader" async defer src="../../../js-na1.hs-scripts.com/45240648.js"></script>
+
+<div class="fixed">
+    <input type="text">
+</div>
+
+</body>
+
+<!-- Mirrored from laravel.com/docs/11.x/artisan by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:10 GMT -->
+</html>

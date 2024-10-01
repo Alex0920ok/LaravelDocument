@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from laravel.com/docs/11.x/logging by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+
+        <title>Logging - Laravel 11.x - The PHP Framework For Web Artisans</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+        <link rel="canonical" href="logging.html">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta name="description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://laravel.com/">
+    <meta property="og:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="og:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="og:image" content="../../img/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://laravel.com/">
+    <meta property="twitter:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="twitter:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="twitter:image" content="../../img/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://laravel.com/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://laravel.com/img/favicon/safari-pinned-tab.svg" color="#ff2d20">
+    <link rel="shortcut icon" href="https://laravel.com/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ff2d20">
+    <meta name="msapplication-config" content="https://laravel.com/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+
+    <link rel="preconnect" href="https://e3mirnpjh5-dsn.algolia.net/" crossorigin />
+
+    <link rel="stylesheet" href="../../../use.typekit.net/ins2wgm.css">
+    <link rel="preload" as="style" href="../../build/assets/app-6e52703b.css" /><link rel="modulepreload" href="../../build/assets/app-70a5a3a6.js" /><link rel="modulepreload" href="../../build/assets/docs-45166933.js" /><link rel="stylesheet" href="../../build/assets/app-6e52703b.css" /><script type="module" src="../../build/assets/app-70a5a3a6.js"></script><script type="module" src="../../build/assets/docs-45166933.js"></script>
+            <!-- Fathom - beautiful, simple website analytics -->
+        <script src="../../../cdn.usefathom.com/script.js" data-site="DVMEKBYF" defer></script>
+        <!-- / Fathom -->
+
+        <!-- Clearbit -->
+        <script async src="../../../tag.clearbitscripts.com/v1/pk_97d2bf69f817feb07be42fcda1460119/tags.js" referrerpolicy="strict-origin-when-cross-origin"></script>
+    
+    
+    <script>
+        const alwaysLightMode = false;
+    </script>
+
+    <script>
+    function updateTheme() {
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'system';
+        }
+
+        switch (localStorage.theme) {
+            case 'system':
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+
+                document.documentElement.setAttribute('color-theme', 'system');
+                break;
+
+            case 'dark':
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('color-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                break;
+
+            case 'light':
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('color-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                break;
+        }
+
+        updateThemeAndSchemeColor();
+    }
+
+    function updateThemeAndSchemeColor() {
+        if (! alwaysLightMode) {
+            if (document.documentElement.classList.contains('dark')) {
+                document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'dark');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#171923');
+
+                return;
+            }
+
+            document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'light');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
+        }
+    }
+
+    updateTheme();
+</script>
+
+    </head>
+<body
+    x-data="{
+        navIsOpen: false,
+    }"
+    class="w-full h-full font-sans antialiased text-gray-900 language-php"
+    data-instant-intensity="0"
+>
+
+    <a
+    id="skip-to-content-link"
+    href="#main-content"
+    class="absolute bg-gray-100 px-4 py-2 top-3 left-3 text-gray-700 shadow-xl"
+>
+    Skip to content
+</a>
+
+    <div class="hidden lg:flex items-center justify-center bg-gradient-to-b from-red-500 to-red-600 p-2 text-center text-white text-sm h-9">
+    <template id="news-herd">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" stroke-linecap="round" fill="none" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
+              <path d="M7 8v1" />
+              <path d="M17 8v1" />
+              <path d="M12.5 4c-.654 1.486 -1.26 3.443 -1.5 9h2.5c-.19 2.867 .094 5.024 .5 7" />
+              <path d="M7 15.5c3.667 2 6.333 2 10 0" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Get started with PHP and Laravel faster than ever using <a href="https://herd.laravel.com/" class="underline">Laravel Herd</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Join us in Dallas, TX! Tickets are now available for <a href="https://laracon.us/" class="underline">Laracon US</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-in">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to India! Tickets are now available for <a href="https://laracon.in/" class="underline">Laracon IN</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-eu">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to Europe! Tickets are now available for <a href="https://laracon.eu/" class="underline">Laracon EU</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-au">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go down under! Tickets are now available for <a href="https://laracon.au/" class="underline">Laracon AU</a>.
+        </div>
+    </template>
+
+    <template id="news-forge">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Servers with PHP 8.3 are now available for provisioning via <a href="https://forge.laravel.com/" class="underline">Laravel Forge</a>.
+        </div>
+    </template>
+
+    <template id="news-vapor">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Deploy Laravel with the infinite scale of serverless using <a href="https://vapor.laravel.com/" class="underline">Laravel Vapor</a>.
+        </div>
+    </template>
+
+    <template id="news-cloud">
+        
+
+        <div class="mt-px ml-1">
+            Join the waitlist for <a href="https://cloud.laravel.com/" class="underline">Laravel Cloud</a>, the future of shipping.
+        </div>
+    </template>
+
+    <template id="news-pulse">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline">Laravel Pulse</a>.
+        </div>
+    </template>
+
+    <template id="news-reverb">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3.707 6.293l2.586 -2.586a1 1 0 0 1 1.414 0l5.586 5.586a1 1 0 0 1 0 1.414l-2.586 2.586a1 1 0 0 1 -1.414 0l-5.586 -5.586a1 1 0 0 1 0 -1.414z" />
+              <path d="M6 10l-3 3l3 3l3 -3" />
+              <path d="M10 6l3 -3l3 3l-3 3" />
+              <path d="M12 12l1.5 1.5" />
+              <path d="M14.5 17a2.5 2.5 0 0 0 2.5 -2.5" />
+              <path d="M15 21a6 6 0 0 0 6 -6" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Incoming transmission received. <a href="https://reverb.laravel.com/" class="underline">Laravel Reverb</a> is now available!
+        </div>
+    </template>
+
+    <template id="news-nova">
+        <div>
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Take your administration backend to another dimension with <a href="https://nova.laravel.com/" class="underline">Laravel Nova</a>.
+        </div>
+    </template>
+
+    <template id="news-careers">
+        <div>
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Laravel is hiring! <a href="https://laravel.com/careers" class="underline">Help us build the future of Laravel</a>.
+        </div>
+
+    </template>
+</div>
+<script>
+    const activeNewsTemplate = document.getElementById(
+        'news-'+JSON.parse('[\u0022cloud\u0022]')[Math.floor(Math.random() * 1)]
+    )
+
+    activeNewsTemplate.replaceWith(activeNewsTemplate.content)
+</script>
+
+    <div class="relative dark:bg-dark-700" id="docsScreen">
+        <div class="relative lg:flex lg:items-start">
+            <aside class="hidden fixed top-0 bottom-0 left-0 z-20 w-16 bg-gradient-to-b from-gray-100 to-white transition-all duration-300 lg:sticky lg:w-80 lg:shrink-0 lg:flex lg:flex-col lg:justify-end lg:items-end 2xl:max-w-lg 2xl:w-full dark:from-dark-800 dark:to-dark-700">
+                <div class="relative max-h-screen overflow-auto flex-1 flex flex-col xl:w-80">
+                    <a href="https://laravel.com/" class="flex items-center py-8 px-4 lg:px-8 xl:px-16">
+                        <img
+                            class="w-8 h-8 shrink-0 transition-all duration-300 lg:w-12 lg:h-12"
+                            src="https://laravel.com/img/logomark.min.svg"
+                            alt="Laravel"
+                            width="50"
+                            height="52"
+                        >
+                        <img
+                            src="https://laravel.com/img/logotype.min.svg"
+                            alt="Laravel"
+                            class="hidden ml-4 lg:block"
+                            width="114"
+                            height="29"
+                        >
+                    </a>
+                    <div class="px-4 pb-10 lg:px-8 xl:px-16">
+                        <nav id="indexed-nav" class="hidden lg:block lg:mt-4">
+                            <div class="docs_sidebar">
+                                <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li class="active">
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Digging Deeper</h2>
+<ul>
+<li>
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li>
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                            </div>
+                        </nav>
+
+                        
+                        <template id="promote-forge">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Forge:</span> create and manage PHP 8 servers. Deploy your Laravel applications in seconds. <a class="underline text-red-600" href="https://forge.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-vapor">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Vapor:</span> experience extreme scale on a dedicated serverless platform for Laravel. <a class="underline text-red-600" href="https://vapor.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-nova">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Nova:</span> The next generation of Nova is <a class="underline text-red-600" href="https://nova.laravel.com/">now available</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-pulse">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Pulse:</span> How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline text-red-600">Laravel Pulse</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-reverb">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Reverb:</span> You can easily build dynamic, real-time Laravel applications using WebSockets. <a href="https://reverb.laravel.com/" class="underline text-red-600">Laravel Reverb</a> is now available!
+                            </div>
+                        </template>
+                        <script>
+                            const activePromotionTemplate = document.getElementById(
+                                'promote-'+JSON.parse('[\u0022forge\u0022,\u0022vapor\u0022,\u0022nova\u0022,\u0022pulse\u0022,\u0022reverb\u0022]')[Math.floor(Math.random() * 5)]
+                            )
+
+                            activePromotionTemplate.replaceWith(activePromotionTemplate.content)
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <header
+                class="lg:hidden"
+                @keydown.window.escape="navIsOpen = false"
+                @click.away="navIsOpen = false"
+            >
+                <div class="relative mx-auto w-full py-10 bg-white transition duration-200 dark:bg-dark-700">
+                    <div class="mx-auto px-8 sm:px-16 flex items-center justify-between">
+                        <a href="https://laravel.com/" class="flex items-center">
+                            <img class="" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="50" height="52">
+                            <img class="hidden ml-5 sm:block" src="https://laravel.com/img/logotype.min.svg" alt="Laravel" width="114" height="29">
+                        </a>
+                        <div class="flex-1 flex items-center justify-end">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                            <button class="ml-2 relative w-10 h-10 p-2 text-red-600 lg:hidden focus:outline-none focus:shadow-outline" aria-label="Menu" @click.prevent="navIsOpen = !navIsOpen">
+                                <svg x-show="! navIsOpen" x-transition.opacity class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                <svg x-show="navIsOpen" x-transition.opacity x-cloak class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <span :class="{ 'shadow-sm': navIsOpen }" class="absolute inset-0 z-20 pointer-events-none"></span>
+                </div>
+                <div
+                    x-show="navIsOpen"
+                    x-transition:enter="duration-150"
+                    x-transition:leave="duration-100 ease-in"
+                    x-cloak
+                >
+                    <nav
+                        x-show="navIsOpen"
+                        x-cloak
+                        class="absolute w-full transform origin-top shadow-sm z-10"
+                        x-transition:enter="duration-150 ease-out"
+                        x-transition:enter-start="opacity-0 -translate-y-8 scale-75"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="duration-100 ease-in"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-8 scale-75"
+                    >
+                        <div class="relative p-8 bg-white docs_sidebar dark:bg-dark-600">
+                            <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li class="active">
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Digging Deeper</h2>
+<ul>
+<li>
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li>
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <section class="flex-1 dark:bg-dark-700">
+                <div class="max-w-screen-lg px-8 sm:px-16 lg:px-24">
+                    <div class="flex flex-col items-end border-b border-gray-200 py-1 transition-colors dark:border-gray-700 lg:mt-8 lg:flex-row-reverse">
+                        <div class="hidden lg:flex items-center justify-center ml-8">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="w-full lg:w-40 lg:pl-12">
+                            <div>
+                                <label class="text-gray-600 text-xs tracking-widest uppercase dark:text-gray-500" for="version-switcher">Version</label>
+                                <div x-data class="relative w-full bg-white transition-all duration-500 focus-within:border-gray-600 dark:bg-gray-800">
+                                    <select
+                                        id="version-switcher"
+                                        aria-label="Laravel version"
+                                        class="appearance-none flex-1 w-full px-0 py-1 placeholder-gray-900 tracking-wide bg-white border-transparent focus:outline-none dark:bg-dark-700 dark:text-gray-400 dark:placeholder-gray-500"
+                                        @change="window.location = $event.target.value"
+                                    >
+                                                                                    <option  value="https://laravel.com/docs/master/logging">Master</option>
+                                                                                    <option selected value="logging.html">11.x</option>
+                                                                                    <option  value="https://laravel.com/docs/10.x/logging">10.x</option>
+                                                                                    <option  value="https://laravel.com/docs/9.x/logging">9.x</option>
+                                                                                    <option  value="https://laravel.com/docs/8.x/logging">8.x</option>
+                                                                                    <option  value="https://laravel.com/docs/7.x/logging">7.x</option>
+                                                                                    <option  value="https://laravel.com/docs/6.x/logging">6.x</option>
+                                                                                    <option  value="https://laravel.com/docs/5.8/logging">5.8</option>
+                                                                                    <option  value="https://laravel.com/docs/5.7/logging">5.7</option>
+                                                                                    <option  value="https://laravel.com/docs/5.6/logging">5.6</option>
+                                                                                    <option  value="https://laravel.com/docs/5.5/logging">5.5</option>
+                                                                                    <option  value="https://laravel.com/docs/5.4/logging">5.4</option>
+                                                                                    <option  value="https://laravel.com/docs/5.3/logging">5.3</option>
+                                                                                    <option  value="https://laravel.com/docs/5.2/logging">5.2</option>
+                                                                                    <option  value="https://laravel.com/docs/5.1/logging">5.1</option>
+                                                                                    <option  value="https://laravel.com/docs/5.0/logging">5.0</option>
+                                                                                    <option  value="https://laravel.com/docs/4.2/logging">4.2</option>
+                                                                            </select>
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none dark:hidden" src="https://laravel.com/img/icons/drop_arrow.min.svg" alt="" width="10" height="10">
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none hidden dark:block" src="https://laravel.com/img/icons/drop_arrow.dark.min.svg" alt="" width="10" height="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-8 flex items-center justify-end w-full h-10 lg:mt-0">
+                            <div class="flex-1 flex items-center">
+                                <button id="docsearch" class="text-gray-800 transition-colors dark:text-gray-400 w-full"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="mt-8 md:mt-16">
+                        <section class="docs_main max-w-prose">
+                            
+                            
+                            <div id="main-content">
+    <h1>Logging</h1>
+<ul>
+<li>
+<a href="#introduction">Introduction</a>
+</li>
+<li>
+<a href="#configuration">Configuration</a>
+<ul>
+<li>
+<a href="#available-channel-drivers">Available Channel Drivers</a>
+</li>
+<li>
+<a href="#channel-prerequisites">Channel Prerequisites</a>
+</li>
+<li>
+<a href="#logging-deprecation-warnings">Logging Deprecation Warnings</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#building-log-stacks">Building Log Stacks</a>
+</li>
+<li>
+<a href="#writing-log-messages">Writing Log Messages</a>
+<ul>
+<li>
+<a href="#contextual-information">Contextual Information</a>
+</li>
+<li>
+<a href="#writing-to-specific-channels">Writing to Specific Channels</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#monolog-channel-customization">Monolog Channel Customization</a>
+<ul>
+<li>
+<a href="#customizing-monolog-for-channels">Customizing Monolog for Channels</a>
+</li>
+<li>
+<a href="#creating-monolog-handler-channels">Creating Monolog Handler Channels</a>
+</li>
+<li>
+<a href="#creating-custom-channels-via-factories">Creating Custom Channels via Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#tailing-log-messages-using-pail">Tailing Log Messages Using Pail</a>
+<ul>
+<li>
+<a href="#pail-installation">Installation</a>
+</li>
+<li>
+<a href="#pail-usage">Usage</a>
+</li>
+<li>
+<a href="#pail-filtering-logs">Filtering Logs</a>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="introduction"><a href="#introduction">Introduction</a></h2>
+<p>To help you learn more about what's happening within your application, Laravel provides robust logging services that allow you to log messages to files, the system error log, and even to Slack to notify your entire team.</p>
+<p>Laravel logging is based on &quot;channels&quot;. Each channel represents a specific way of writing log information. For example, the <code>single</code> channel writes log files to a single log file, while the <code>slack</code> channel sends log messages to Slack. Log messages may be written to multiple channels based on their severity.</p>
+<p>Under the hood, Laravel utilizes the <a href="https://github.com/Seldaek/monolog">Monolog</a> library, which provides support for a variety of powerful log handlers. Laravel makes it a cinch to configure these handlers, allowing you to mix and match them to customize your application's log handling.</p>
+<h2 id="configuration"><a href="#configuration">Configuration</a></h2>
+<p>All of the configuration options that control your application's logging behavior are housed in the <code>config/logging.php</code> configuration file. This file allows you to configure your application's log channels, so be sure to review each of the available channels and their options. We'll review a few common options below.</p>
+<p>By default, Laravel will use the <code>stack</code> channel when logging messages. The <code>stack</code> channel is used to aggregate multiple log channels into a single channel. For more information on building stacks, check out the <a href="#building-log-stacks">documentation below</a>.</p>
+<h3 id="available-channel-drivers"><a href="#available-channel-drivers">Available Channel Drivers</a></h3>
+<p>Each log channel is powered by a &quot;driver&quot;. The driver determines how and where the log message is actually recorded. The following log channel drivers are available in every Laravel application. An entry for most of these drivers is already present in your application's <code>config/logging.php</code> configuration file, so be sure to review this file to become familiar with its contents:</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>custom</code></td>
+<td>A driver that calls a specified factory to create a channel.</td>
+</tr>
+<tr>
+<td><code>daily</code></td>
+<td>A <code>RotatingFileHandler</code> based Monolog driver which rotates daily.</td>
+</tr>
+<tr>
+<td><code>errorlog</code></td>
+<td>An <code>ErrorLogHandler</code> based Monolog driver.</td>
+</tr>
+<tr>
+<td><code>monolog</code></td>
+<td>A Monolog factory driver that may use any supported Monolog handler.</td>
+</tr>
+<tr>
+<td><code>papertrail</code></td>
+<td>A <code>SyslogUdpHandler</code> based Monolog driver.</td>
+</tr>
+<tr>
+<td><code>single</code></td>
+<td>A single file or path based logger channel (<code>StreamHandler</code>).</td>
+</tr>
+<tr>
+<td><code>slack</code></td>
+<td>A <code>SlackWebhookHandler</code> based Monolog driver.</td>
+</tr>
+<tr>
+<td><code>stack</code></td>
+<td>A wrapper to facilitate creating &quot;multi-channel&quot; channels.</td>
+</tr>
+<tr>
+<td><code>syslog</code></td>
+<td>A <code>SyslogHandler</code> based Monolog driver.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+Check out the documentation on <a href="#monolog-channel-customization">advanced channel customization</a> to learn more about the <code>monolog</code> and <code>custom</code> drivers.</p>
+</div>
+<h4 id="configuring-the-channel-name"><a href="#configuring-the-channel-name">Configuring the Channel Name</a></h4>
+<p>By default, Monolog is instantiated with a &quot;channel name&quot; that matches the current environment, such as <code>production</code> or <code>local</code>. To change this value, you may add a <code>name</code> option to your channel's configuration:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">stack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">stack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channel-name</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h3 id="channel-prerequisites"><a href="#channel-prerequisites">Channel Prerequisites</a></h3>
+<h4 id="configuring-the-single-and-daily-channels"><a href="#configuring-the-single-and-daily-channels">Configuring the Single and Daily Channels</a></h4>
+<p>The <code>single</code> and <code>daily</code> channels have three optional configuration options: <code>bubble</code>, <code>permission</code>, and <code>locking</code>.</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bubble</code></td>
+<td>Indicates if messages should bubble up to other channels after being handled.</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>locking</code></td>
+<td>Attempt to lock the log file before writing to it.</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>permission</code></td>
+<td>The log file's permissions.</td>
+<td><code>0644</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Additionally, the retention policy for the <code>daily</code> channel can be configured via the <code>LOG_DAILY_DAYS</code> environment variable or by setting the <code>days</code> configuration option.</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>days</code></td>
+<td>The number of days that daily log files should be retained.</td>
+<td><code>7</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="configuring-the-papertrail-channel"><a href="#configuring-the-papertrail-channel">Configuring the Papertrail Channel</a></h4>
+<p>The <code>papertrail</code> channel requires <code>host</code> and <code>port</code> configuration options. These may be defined via the <code>PAPERTRAIL_URL</code> and <code>PAPERTRAIL_PORT</code> environment variables. You can obtain these values from <a href="https://help.papertrailapp.com/kb/configuration/configuring-centralized-logging-from-php-apps/#send-events-from-php-app">Papertrail</a>.</p>
+<h4 id="configuring-the-slack-channel"><a href="#configuring-the-slack-channel">Configuring the Slack Channel</a></h4>
+<p>The <code>slack</code> channel requires a <code>url</code> configuration option. This value may be defined via the <code>LOG_SLACK_WEBHOOK_URL</code> environment variable. This URL should match a URL for an <a href="https://slack.com/apps/A0F7XDUAZ-incoming-webhooks">incoming webhook</a> that you have configured for your Slack team.</p>
+<p>By default, Slack will only receive logs at the <code>critical</code> level and above; however, you can adjust this using the <code>LOG_LEVEL</code> environment variable or by modifying the <code>level</code> configuration option within your Slack log channel's configuration array.</p>
+<h3 id="logging-deprecation-warnings"><a href="#logging-deprecation-warnings">Logging Deprecation Warnings</a></h3>
+<p>PHP, Laravel, and other libraries often notify their users that some of their features have been deprecated and will be removed in a future version. If you would like to log these deprecation warnings, you may specify your preferred <code>deprecations</code> log channel using the <code>LOG_DEPRECATIONS_CHANNEL</code> environment variable, or within your application's <code>config/logging.php</code> configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">deprecations</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channel</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_DEPRECATIONS_CHANNEL</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">null</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">trace</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_DEPRECATIONS_TRACE</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> false</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">]</span></div></code></pre>
+<p>Or, you may define a log channel named <code>deprecations</code>. If a log channel with this name exists, it will always be used to log deprecations:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">deprecations</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">path</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">storage_path</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">logs/php-deprecation-warnings.log</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h2 id="building-log-stacks"><a href="#building-log-stacks">Building Log Stacks</a></h2>
+<p>As mentioned previously, the <code>stack</code> driver allows you to combine multiple channels into a single log channel for convenience. To illustrate how to use log stacks, let's take a look at an example configuration that you might see in a production application:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight has-add-lines has-diff-lines' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">stack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">stack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line line-add line-has-background' style='background-color: #99b76d23'><span style="color: #C3E88D;">        </span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;"> </span><span style="color: #C3E88D;">=&gt;</span><span style="color: #C3E88D;"> [</span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;">syslog</span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;">, </span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #C3E88D;">&#39;</span><span style="color: #C3E88D;">], </span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">ignore_exceptions</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">false</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">syslog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">syslog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">level</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_LEVEL</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">debug</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">facility</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_SYSLOG_FACILITY</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #89DDFF;">LOG_USER</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">replace_placeholders</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">url</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_SLACK_WEBHOOK_URL</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">username</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_SLACK_USERNAME</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Laravel Log</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emoji</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_SLACK_EMOJI</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">:boom:</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">level</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_LEVEL</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">critical</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">replace_placeholders</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+</div>
+<p>Let's dissect this configuration. First, notice our <code>stack</code> channel aggregates two other channels via its <code>channels</code> option: <code>syslog</code> and <code>slack</code>. So, when logging messages, both of these channels will have the opportunity to log the message. However, as we will see below, whether these channels actually log the message may be determined by the message's severity / &quot;level&quot;.</p>
+<h4 id="log-levels"><a href="#log-levels">Log Levels</a></h4>
+<p>Take note of the <code>level</code> configuration option present on the <code>syslog</code> and <code>slack</code> channel configurations in the example above. This option determines the minimum &quot;level&quot; a message must be in order to be logged by the channel. Monolog, which powers Laravel's logging services, offers all of the log levels defined in the <a href="https://tools.ietf.org/html/rfc5424">RFC 5424 specification</a>. In descending order of severity, these log levels are: <strong>emergency</strong>, <strong>alert</strong>, <strong>critical</strong>, <strong>error</strong>, <strong>warning</strong>, <strong>notice</strong>, <strong>info</strong>, and <strong>debug</strong>.</p>
+<p>So, imagine we log a message using the <code>debug</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">debug</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">An informational message.</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>Given our configuration, the <code>syslog</code> channel will write the message to the system log; however, since the error message is not <code>critical</code> or above, it will not be sent to Slack. However, if we log an <code>emergency</code> message, it will be sent to both the system log and Slack since the <code>emergency</code> level is above our minimum level threshold for both channels:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">emergency</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">The system is down!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h2 id="writing-log-messages"><a href="#writing-log-messages">Writing Log Messages</a></h2>
+<p>You may write information to the logs using the <code>Log</code> <a href="facades.html">facade</a>. As previously mentioned, the logger provides the eight logging levels defined in the <a href="https://tools.ietf.org/html/rfc5424">RFC 5424 specification</a>: <strong>emergency</strong>, <strong>alert</strong>, <strong>critical</strong>, <strong>error</strong>, <strong>warning</strong>, <strong>notice</strong>, <strong>info</strong> and <strong>debug</strong>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">emergency</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">alert</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">critical</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">error</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">warning</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">notice</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">debug</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$message</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>You may call any of these methods to log a message for the corresponding level. By default, the message will be written to the default log channel as configured by your <code>logging</code> configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Http\Controllers;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Http\Controllers\</span><span style="color: #FFCB8B;">Controller</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Models\</span><span style="color: #FFCB8B;">User</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\View\</span><span style="color: #FFCB8B;">View</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">UserController</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">extends</span><span style="color: #BFC7D5;"> </span><span style="color: #A9C77D;">Controller</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Show the profile for the given user.</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">show</span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$id</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">View</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Showing the user profile for user: {id}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$id</span><span style="color: #BFC7D5;">]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">view</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user.profile</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #BFC7D5;">[</span></div><div class='line'><span style="color: #82AAFF;">            </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #82AAFF;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #82AAFF;"> </span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">findOrFail</span><span style="color: #BFC7D5;">($</span><span style="color: #BEC5D4;">id</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #82AAFF;">        </span><span style="color: #BFC7D5;">]);</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<h3 id="contextual-information"><a href="#contextual-information">Contextual Information</a></h3>
+<p>An array of contextual data may be passed to the log methods. This contextual data will be formatted and displayed with the log message:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">User {id} failed to login.</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$user</span><span style="color: #89DDFF;">-&gt;id</span><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<p>Occasionally, you may wish to specify some contextual information that should be included with all subsequent log entries in a particular channel. For example, you may wish to log a request ID that is associated with each incoming request to your application. To accomplish this, you may call the <code>Log</code> facade's <code>withContext</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Http\Middleware;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Closure</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Http\</span><span style="color: #FFCB8B;">Request</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\</span><span style="color: #FFCB8B;">Str</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Symfony\Component\HttpFoundation\</span><span style="color: #FFCB8B;">Response</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">AssignRequestId</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Handle an incoming request.</span></div><div class='line'><span style="color: #697098;">     *</span></div><div class='line'><span style="color: #697098;">     * </span><span style="color: #C792EA;">@param</span><span style="color: #697098;">  </span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Closure</span><span style="color: #697098;">(\</span><span style="color: #697098;">Illuminate</span><span style="color: #697098;">\</span><span style="color: #697098;">Http</span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Request</span><span style="color: #697098;">): </span><span style="color: #697098;">(\</span><span style="color: #697098;">Symfony</span><span style="color: #697098;">\</span><span style="color: #697098;">Component</span><span style="color: #697098;">\</span><span style="color: #697098;">HttpFoundation</span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Response</span><span style="color: #697098;">)  $</span><span style="color: #FFCB8B;">next</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Request</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$request</span><span style="color: #BFC7D5;">, </span><span style="color: #FFCB8B;">Closure</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$next</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Response</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #BEC5D4;">$requestId</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> (</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;">) </span><span style="color: #FFCB8B;">Str</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">uuid</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">withContext</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">request-id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$requestId</span></div><div class='line'><span style="color: #BFC7D5;">        ]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #BEC5D4;">$response</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$next</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$request</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #BEC5D4;">$response</span><span style="color: #89DDFF;">-&gt;headers-&gt;</span><span style="color: #82AAFF;">set</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Request-Id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #BEC5D4;">$requestId</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$response</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<p>If you would like to share contextual information across <em>all</em> logging channels, you may invoke the <code>Log::shareContext()</code> method. This method will provide the contextual information to all created channels and any channels that are created subsequently:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Http\Middleware;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Closure</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Http\</span><span style="color: #FFCB8B;">Request</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\</span><span style="color: #FFCB8B;">Str</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Symfony\Component\HttpFoundation\</span><span style="color: #FFCB8B;">Response</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">AssignRequestId</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Handle an incoming request.</span></div><div class='line'><span style="color: #697098;">     *</span></div><div class='line'><span style="color: #697098;">     * </span><span style="color: #C792EA;">@param</span><span style="color: #697098;">  </span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Closure</span><span style="color: #697098;">(\</span><span style="color: #697098;">Illuminate</span><span style="color: #697098;">\</span><span style="color: #697098;">Http</span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Request</span><span style="color: #697098;">): </span><span style="color: #697098;">(\</span><span style="color: #697098;">Symfony</span><span style="color: #697098;">\</span><span style="color: #697098;">Component</span><span style="color: #697098;">\</span><span style="color: #697098;">HttpFoundation</span><span style="color: #697098;">\</span><span style="color: #FFCB8B;">Response</span><span style="color: #697098;">)  $</span><span style="color: #FFCB8B;">next</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">handle</span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Request</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$request</span><span style="color: #BFC7D5;">, </span><span style="color: #FFCB8B;">Closure</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$next</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Response</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #BEC5D4;">$requestId</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> (</span><span style="color: #C792EA;">string</span><span style="color: #BFC7D5;">) </span><span style="color: #FFCB8B;">Str</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">uuid</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">shareContext</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">request-id</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$requestId</span></div><div class='line'><span style="color: #BFC7D5;">        ]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+If you need to share log context while processing queued jobs, you may utilize <a href="queues.html#job-middleware">job middleware</a>.</p>
+</div>
+<h3 id="writing-to-specific-channels"><a href="#writing-to-specific-channels">Writing to Specific Channels</a></h3>
+<p>Sometimes you may wish to log a message to a channel other than your application's default channel. You may use the <code>channel</code> method on the <code>Log</code> facade to retrieve and log to any channel defined in your configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">channel</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something happened!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>If you would like to create an on-demand logging stack consisting of multiple channels, you may use the <code>stack</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">stack</span><span style="color: #BFC7D5;">([</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something happened!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="on-demand-channels"><a href="#on-demand-channels">On-Demand Channels</a></h4>
+<p>It is also possible to create an on-demand channel by providing the configuration at runtime without that configuration being present in your application's <code>logging</code> configuration file. To accomplish this, you may pass a configuration array to the <code>Log</code> facade's <code>build</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">build</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">  </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">  </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">path</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">storage_path</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">logs/custom.log</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something happened!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>You may also wish to include an on-demand channel in an on-demand logging stack. This can be achieved by including your on-demand channel instance in the array passed to the <code>stack</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Log</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BEC5D4;">$channel</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">=</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">build</span><span style="color: #BFC7D5;">([</span></div><div class='line'><span style="color: #BFC7D5;">  </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">  </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">path</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">storage_path</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">logs/custom.log</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">]);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Log</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">stack</span><span style="color: #BFC7D5;">([</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">slack</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #BEC5D4;">$channel</span><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">info</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Something happened!</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h2 id="monolog-channel-customization"><a href="#monolog-channel-customization">Monolog Channel Customization</a></h2>
+<h3 id="customizing-monolog-for-channels"><a href="#customizing-monolog-for-channels">Customizing Monolog for Channels</a></h3>
+<p>Sometimes you may need complete control over how Monolog is configured for an existing channel. For example, you may want to configure a custom Monolog <code>FormatterInterface</code> implementation for Laravel's built-in <code>single</code> channel.</p>
+<p>To get started, define a <code>tap</code> array on the channel's configuration. The <code>tap</code> array should contain a list of classes that should have an opportunity to customize (or &quot;tap&quot; into) the Monolog instance after it is created. There is no conventional location where these classes should be placed, so you are free to create a directory within your application to contain these classes:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">single</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">tap</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [App\Logging\</span><span style="color: #FFCB8B;">CustomizeFormatter</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">path</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">storage_path</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">logs/laravel.log</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">level</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">LOG_LEVEL</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">debug</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">replace_placeholders</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<p>Once you have configured the <code>tap</code> option on your channel, you're ready to define the class that will customize your Monolog instance. This class only needs a single method: <code>__invoke</code>, which receives an <code>Illuminate\Log\Logger</code> instance. The <code>Illuminate\Log\Logger</code> instance proxies all method calls to the underlying Monolog instance:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Logging;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Log\</span><span style="color: #FFCB8B;">Logger</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Monolog\Formatter\</span><span style="color: #FFCB8B;">LineFormatter</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">CustomizeFormatter</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Customize the given logger instance.</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">__invoke</span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Logger</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$logger</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">void</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #C792EA;">foreach</span><span style="color: #BFC7D5;"> (</span><span style="color: #BEC5D4;">$logger</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">getHandlers</span><span style="color: #BFC7D5;">() </span><span style="color: #C792EA;">as</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$handler</span><span style="color: #BFC7D5;">) {</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #BEC5D4;">$handler</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">setFormatter</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">LineFormatter</span><span style="color: #BFC7D5;">(</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">[%datetime%] %channel%.%level_name%: %message% %context% %extra%</span><span style="color: #D9F5DD;">&#39;</span></div><div class='line'><span style="color: #BFC7D5;">            ));</span></div><div class='line'><span style="color: #BFC7D5;">        }</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-purple-600">
+        <div class="opacity-75"><svg width="28" height="40" viewBox="0 0 28 40" xmlns="http://www.w3.org/2000/svg"><title>lightbulb</title><path d="M12 28h4v-8h-4v8zM8 40h12v-8H8v8zm13.98-14.52c-1.001.705-1.661 1.545-1.98 2.52H8c-.416-.959-1.076-1.799-1.98-2.52A13.99 13.99 0 0 1 0 14C0 6.272 6.272 0 14 0s14 6.272 14 14a13.99 13.99 0 0 1-6.02 11.48z" fill="#FFF" fill-rule="nonzero"/></svg></div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+All of your &quot;tap&quot; classes are resolved by the <a href="container.html">service container</a>, so any constructor dependencies they require will automatically be injected.</p>
+</div>
+<h3 id="creating-monolog-handler-channels"><a href="#creating-monolog-handler-channels">Creating Monolog Handler Channels</a></h3>
+<p>Monolog has a variety of <a href="https://github.com/Seldaek/monolog/tree/main/src/Monolog/Handler">available handlers</a> and Laravel does not include a built-in channel for each one. In some cases, you may wish to create a custom channel that is merely an instance of a specific Monolog handler that does not have a corresponding Laravel log driver.  These channels can be easily created using the <code>monolog</code> driver.</p>
+<p>When using the <code>monolog</code> driver, the <code>handler</code> configuration option is used to specify which handler will be instantiated. Optionally, any constructor parameters the handler needs may be specified using the <code>with</code> configuration option:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">logentries</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">  </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">monolog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">handler</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Handler\</span><span style="color: #FFCB8B;">SyslogUdpHandler</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">with</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">host</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">my.logentries.internal.datahubhost.company.com</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">port</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">10000</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h4 id="monolog-formatters"><a href="#monolog-formatters">Monolog Formatters</a></h4>
+<p>When using the <code>monolog</code> driver, the Monolog <code>LineFormatter</code> will be used as the default formatter. However, you may customize the type of formatter passed to the handler using the <code>formatter</code> and <code>formatter_with</code> configuration options:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">browser</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">monolog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">handler</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Handler\</span><span style="color: #FFCB8B;">BrowserConsoleHandler</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">formatter</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Formatter\</span><span style="color: #FFCB8B;">HtmlFormatter</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">formatter_with</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">dateFormat</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Y-m-d</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<p>If you are using a Monolog handler that is capable of providing its own formatter, you may set the value of the <code>formatter</code> configuration option to <code>default</code>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">newrelic</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">monolog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">handler</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Handler\</span><span style="color: #FFCB8B;">NewRelicHandler</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">formatter</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">default</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h4 id="monolog-processors"><a href="#monolog-processors">Monolog Processors</a></h4>
+<p>Monolog can also process messages before logging them. You can create your own processors or use the <a href="https://github.com/Seldaek/monolog/tree/main/src/Monolog/Processor">existing processors offered by Monolog</a>.</p>
+<p>If you would like to customize the processors for a <code>monolog</code> driver, add a <code>processors</code> configuration value to your channel's configuration:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">memory</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">monolog</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">handler</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Handler\</span><span style="color: #FFCB8B;">StreamHandler</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">with</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">stream</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">php://stderr</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">processors</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #697098;">//</span><span style="color: #697098;"> Simple syntax...</span></div><div class='line'><span style="color: #BFC7D5;">        Monolog\Processor\</span><span style="color: #FFCB8B;">MemoryUsageProcessor</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #697098;">//</span><span style="color: #697098;"> With options...</span></div><div class='line'><span style="color: #BFC7D5;">        [</span></div><div class='line'><span style="color: #BFC7D5;">           </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">processor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> Monolog\Processor\</span><span style="color: #FFCB8B;">PsrLogMessageProcessor</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">           </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">with</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">removeUsedContextFields</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">],</span></div><div class='line'><span style="color: #BFC7D5;">       ],</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<h3 id="creating-custom-channels-via-factories"><a href="#creating-custom-channels-via-factories">Creating Custom Channels via Factories</a></h3>
+<p>If you would like to define an entirely custom channel in which you have full control over Monolog's instantiation and configuration, you may specify a <code>custom</code> driver type in your <code>config/logging.php</code> configuration file. Your configuration should include a <code>via</code> option that contains the name of the factory class which will be invoked to create the Monolog instance:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">channels</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">example-custom-channel</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> [</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">driver</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">custom</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">via</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> App\Logging\</span><span style="color: #FFCB8B;">CreateCustomLogger</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">,</span></div><div class='line'><span style="color: #BFC7D5;">    ],</span></div><div class='line'><span style="color: #BFC7D5;">],</span></div></code></pre>
+<p>Once you have configured the <code>custom</code> driver channel, you're ready to define the class that will create your Monolog instance. This class only needs a single <code>__invoke</code> method which should return the Monolog logger instance. The method will receive the channels configuration array as its only argument:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">namespace</span><span style="color: #BFC7D5;"> App\Logging;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Monolog\</span><span style="color: #FFCB8B;">Logger</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB6B;">CreateCustomLogger</span></div><div class='line'><span style="color: #BFC7D5;">{</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">/**</span></div><div class='line'><span style="color: #697098;">     * Create a custom Monolog instance.</span></div><div class='line'><span style="color: #697098;">     </span><span style="color: #697098;">*/</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">public</span><span style="color: #BFC7D5;"> </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">__invoke</span><span style="color: #D9F5DD;">(</span><span style="color: #C792EA;">array</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$config</span><span style="color: #D9F5DD;">)</span><span style="color: #89DDFF;">:</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Logger</span></div><div class='line'><span style="color: #BFC7D5;">    {</span></div><div class='line'><span style="color: #BFC7D5;">        </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Logger</span><span style="color: #BFC7D5;">(</span><span style="color: #697098;">/*</span><span style="color: #697098;"> ... </span><span style="color: #697098;">*/</span><span style="color: #BFC7D5;">);</span></div><div class='line'><span style="color: #BFC7D5;">    }</span></div><div class='line'><span style="color: #BFC7D5;">}</span></div></code></pre>
+<h2 id="tailing-log-messages-using-pail"><a href="#tailing-log-messages-using-pail">Tailing Log Messages Using Pail</a></h2>
+<p>Often you may need to tail your application's logs in real time. For example, when debugging an issue or when monitoring your application's logs for specific types of errors.</p>
+<p>Laravel Pail is a package that allows you to easily dive into your Laravel application's log files directly from the command line. Unlike the standard <code>tail</code> command, Pail is designed to work with any log driver, including Sentry or Flare. In addition, Pail provides a set of useful filters to help you quickly find what you're looking for.</p>
+<img src="../../img/docs/pail-example.png">
+<h3 id="pail-installation"><a href="#pail-installation">Installation</a></h3>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+Laravel Pail requires <a href="https://php.net/releases/">PHP 8.2+</a> and the <a href="https://www.php.net/manual/en/book.pcntl.php">PCNTL</a> extension.</p>
+</div>
+<p>To get started, install Pail into your project using the Composer package manager:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">composer </span><span style="color: #BFC7D5;">require</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">laravel/pail</span></div></code></pre>
+</div>
+<h3 id="pail-usage"><a href="#pail-usage">Usage</a></h3>
+<p>To start tailing logs, run the <code>pail</code> command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span></div></code></pre>
+</div>
+<p>To increase the verbosity of the output and avoid truncation (…), use the <code>-v</code> option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">-v</span></div></code></pre>
+</div>
+<p>For maximum verbosity and to display exception stack traces, use the <code>-vv</code> option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">-vv</span></div></code></pre>
+</div>
+<p>To stop tailing logs, press <code>Ctrl+C</code> at any time.</p>
+<h3 id="pail-filtering-logs"><a href="#pail-filtering-logs">Filtering Logs</a></h3>
+<h4 id="pail-filtering-logs-filter-option"><a href="#pail-filtering-logs-filter-option"><code>--filter</code></a></h4>
+<p>You may use the <code>--filter</code> option to filter logs by their type, file, message, and stack trace content:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--filter=</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #C3E88D;">QueryException</span><span style="color: #D9F5DD;">&quot;</span></div></code></pre>
+</div>
+<h4 id="pail-filtering-logs-message-option"><a href="#pail-filtering-logs-message-option"><code>--message</code></a></h4>
+<p>To filter logs by only their message, you may use the <code>--message</code> option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--message=</span><span style="color: #D9F5DD;">&quot;</span><span style="color: #C3E88D;">User created</span><span style="color: #D9F5DD;">&quot;</span></div></code></pre>
+</div>
+<h4 id="pail-filtering-logs-level-option"><a href="#pail-filtering-logs-level-option"><code>--level</code></a></h4>
+<p>The <code>--level</code> option may be used to filter logs by their <a href="#log-levels">log level</a>:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--level=error</span></div></code></pre>
+</div>
+<h4 id="pail-filtering-logs-user-option"><a href="#pail-filtering-logs-user-option"><code>--user</code></a></h4>
+<p>To only display logs that were written while a given user was authenticated, you may provide the user's ID to the <code>--user</code> option:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">pail</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">--user=1</span></div></code></pre>
+</div>
+
+                                <script async type="text/javascript" src="../../../cdn.carbonads.com/carbon83bb.js?serve=CKYILK3E&amp;placement=laravelcom" id="_carbonads_js"></script>
+</div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+<footer class="relative pt-12 dark:bg-dark-700">
+    <div class="max-w-screen-2xl mx-auto w-full px-8">
+        <div>
+            <a href="https://laravel.com/" class="inline-flex">
+                <img class="w-16 h-16" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="64" height="64" loading="lazy">
+            </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-12 md:gap-x-8 gap-y-12 sm:mt-12">
+            <div class="col-span-12 lg:col-span-4">
+                <p class="max-w-sm text-xs text-gray-700 sm:text-sm dark:text-gray-500">
+                    Laravel is a web application framework with expressive, elegant syntax. We believe development must
+                    be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain
+                    out of development by easing common tasks used in most web projects.</p>
+                <ul class="mt-6 flex items-center space-x-3">
+                    <li>
+                        <a href="https://x.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6" src="https://laravel.com/img/social/x.dark.min.svg" alt="X" width="24" height="20" loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6" src="https://laravel.com/img/social/x.min.svg" alt="X" width="24" height="20" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/github.dark.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/github.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.gg/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/discord.dark.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/discord.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.dark.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Highlights</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="releases.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Release Notes</a>
+                                </li>
+                                                            <li>
+                                    <a href="installation.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Getting Started</a>
+                                </li>
+                                                            <li>
+                                    <a href="routing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Routing</a>
+                                </li>
+                                                            <li>
+                                    <a href="blade.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Blade Templates</a>
+                                </li>
+                                                            <li>
+                                    <a href="authentication.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authentication</a>
+                                </li>
+                                                            <li>
+                                    <a href="authorization.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authorization</a>
+                                </li>
+                                                            <li>
+                                    <a href="artisan.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Artisan Console</a>
+                                </li>
+                                                            <li>
+                                    <a href="database.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Database</a>
+                                </li>
+                                                            <li>
+                                    <a href="eloquent.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Eloquent ORM</a>
+                                </li>
+                                                            <li>
+                                    <a href="testing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Testing</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Resources</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://bootcamp.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel Bootcamp</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracasts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel-news.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel News</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.us/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.au/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon AU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.eu/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon EU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.in/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon India</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larabelles.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Larabelles</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/careers"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Careers</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larajobs.com/?partner=5"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jobs</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/discuss"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forums</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/trademark"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Trademark</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Partners</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://vehikl.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vehikl</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://webreinvent.com/?utm_source=laravel&amp;utm_medium=laravel.com&amp;utm_campaign=footer-link"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">WebReinvent</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://tighten.co/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Tighten</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.bacancytechnology.com/hire-laravel-developer?utm_source=laravel&amp;utm_medium=partners.laravel&amp;utm_campaign=sponsors"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Bacancy</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://64robots.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">64 Robots</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://activelogic.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Active Logic</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.blackairplane.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Black Airplane</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.byte5.net/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Byte 5</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.curotec.com/services/technologies/laravel/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Curotec</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.cyber-duck.co.uk/how-we-work/technology/laravel?utm_source=Laravel%20Partner&amp;utm_medium=Sponsorship"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cyber-Duck</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://devsquad.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">DevSquad</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jump24.co.uk/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jump24</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://kirschbaumdevelopment.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Kirschbaum</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Ecosystem</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="starter-kits.html#laravel-breeze"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Breeze</a>
+                                </li>
+                                                            <li>
+                                    <a href="billing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cashier</a>
+                                </li>
+                                                            <li>
+                                    <a href="dusk.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Dusk</a>
+                                </li>
+                                                            <li>
+                                    <a href="broadcasting.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Echo</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://envoyer.io/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Envoyer</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://forge.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forge</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://herd.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Herd</a>
+                                </li>
+                                                            <li>
+                                    <a href="horizon.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Horizon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://inertiajs.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Inertia</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jetstream.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jetstream</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://livewire.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Livewire</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://nova.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Nova</a>
+                                </li>
+                                                            <li>
+                                    <a href="octane.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Octane</a>
+                                </li>
+                                                            <li>
+                                    <a href="pennant.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pennant</a>
+                                </li>
+                                                            <li>
+                                    <a href="pint.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pint</a>
+                                </li>
+                                                            <li>
+                                    <a href="prompts.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Prompts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://pulse.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pulse</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://reverb.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Reverb</a>
+                                </li>
+                                                            <li>
+                                    <a href="sail.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sail</a>
+                                </li>
+                                                            <li>
+                                    <a href="sanctum.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sanctum</a>
+                                </li>
+                                                            <li>
+                                    <a href="scout.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Scout</a>
+                                </li>
+                                                            <li>
+                                    <a href="socialite.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Socialite</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://spark.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Spark</a>
+                                </li>
+                                                            <li>
+                                    <a href="telescope.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Telescope</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://vapor.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vapor</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                    </div>
+        <div class="mt-10 border-t pt-6 pb-16 border-gray-200 dark:border-dark-500">
+            <p class="text-xs text-gray-700 dark:text-gray-400">
+                Laravel is a Trademark of Laravel Holdings Inc.<br />
+                Copyright &copy; 2011-2024 Laravel Holdings Inc.
+            </p>
+            <p class="mt-6 text-xs text-gray-700 dark:text-gray-400">
+                Code highlighting provided by <a href="https://torchlight.dev/">Torchlight</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var algolia_app_id = 'E3MIRNPJH5';
+    var algolia_search_key = '1fa3a8fec06eb1858d6ca137211225c0';
+    var version = '11.x';
+</script>
+
+<script>
+    var _gaq=[['_setAccount','UA-23865777-1'],['_trackPageview']];
+    (function(d,t){
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)
+    }(document,'script'));
+</script>
+
+<!-- HubSpot -->
+<script type="text/javascript" id="hs-script-loader" async defer src="../../../js-na1.hs-scripts.com/45240648.js"></script>
+
+<div class="fixed">
+    <input type="text">
+</div>
+
+</body>
+
+<!-- Mirrored from laravel.com/docs/11.x/logging by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:10 GMT -->
+</html>

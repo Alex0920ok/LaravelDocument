@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from laravel.com/docs/11.x/scheduling by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:17 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+
+        <title>Task Scheduling - Laravel 11.x - The PHP Framework For Web Artisans</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+        <link rel="canonical" href="scheduling.html">
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta name="description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://laravel.com/">
+    <meta property="og:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="og:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="og:image" content="../../img/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://laravel.com/">
+    <meta property="twitter:title" content="Laravel - The PHP Framework For Web Artisans">
+    <meta property="twitter:description" content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.">
+    <meta property="twitter:image" content="../../img/og-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://laravel.com/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://laravel.com/img/favicon/safari-pinned-tab.svg" color="#ff2d20">
+    <link rel="shortcut icon" href="https://laravel.com/img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#ff2d20">
+    <meta name="msapplication-config" content="https://laravel.com/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+
+    <link rel="preconnect" href="https://e3mirnpjh5-dsn.algolia.net/" crossorigin />
+
+    <link rel="stylesheet" href="../../../use.typekit.net/ins2wgm.css">
+    <link rel="preload" as="style" href="../../build/assets/app-6e52703b.css" /><link rel="modulepreload" href="../../build/assets/app-70a5a3a6.js" /><link rel="modulepreload" href="../../build/assets/docs-45166933.js" /><link rel="stylesheet" href="../../build/assets/app-6e52703b.css" /><script type="module" src="../../build/assets/app-70a5a3a6.js"></script><script type="module" src="../../build/assets/docs-45166933.js"></script>
+            <!-- Fathom - beautiful, simple website analytics -->
+        <script src="../../../cdn.usefathom.com/script.js" data-site="DVMEKBYF" defer></script>
+        <!-- / Fathom -->
+
+        <!-- Clearbit -->
+        <script async src="../../../tag.clearbitscripts.com/v1/pk_97d2bf69f817feb07be42fcda1460119/tags.js" referrerpolicy="strict-origin-when-cross-origin"></script>
+    
+    
+    <script>
+        const alwaysLightMode = false;
+    </script>
+
+    <script>
+    function updateTheme() {
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'system';
+        }
+
+        switch (localStorage.theme) {
+            case 'system':
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+
+                document.documentElement.setAttribute('color-theme', 'system');
+                break;
+
+            case 'dark':
+                document.documentElement.classList.add('dark');
+                document.documentElement.setAttribute('color-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                break;
+
+            case 'light':
+                document.documentElement.classList.remove('dark');
+                document.documentElement.setAttribute('color-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                break;
+        }
+
+        updateThemeAndSchemeColor();
+    }
+
+    function updateThemeAndSchemeColor() {
+        if (! alwaysLightMode) {
+            if (document.documentElement.classList.contains('dark')) {
+                document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'dark');
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '#171923');
+
+                return;
+            }
+
+            document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'light');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
+        }
+    }
+
+    updateTheme();
+</script>
+
+    </head>
+<body
+    x-data="{
+        navIsOpen: false,
+    }"
+    class="w-full h-full font-sans antialiased text-gray-900 language-php"
+    data-instant-intensity="0"
+>
+
+    <a
+    id="skip-to-content-link"
+    href="#main-content"
+    class="absolute bg-gray-100 px-4 py-2 top-3 left-3 text-gray-700 shadow-xl"
+>
+    Skip to content
+</a>
+
+    <div class="hidden lg:flex items-center justify-center bg-gradient-to-b from-red-500 to-red-600 p-2 text-center text-white text-sm h-9">
+    <template id="news-herd">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" stroke-linecap="round" fill="none" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z" />
+              <path d="M7 8v1" />
+              <path d="M17 8v1" />
+              <path d="M12.5 4c-.654 1.486 -1.26 3.443 -1.5 9h2.5c-.19 2.867 .094 5.024 .5 7" />
+              <path d="M7 15.5c3.667 2 6.333 2 10 0" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Get started with PHP and Laravel faster than ever using <a href="https://herd.laravel.com/" class="underline">Laravel Herd</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Join us in Dallas, TX! Tickets are now available for <a href="https://laracon.us/" class="underline">Laracon US</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-in">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to India! Tickets are now available for <a href="https://laracon.in/" class="underline">Laracon IN</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-eu">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go to Europe! Tickets are now available for <a href="https://laracon.eu/" class="underline">Laracon EU</a>.
+        </div>
+    </template>
+
+    <template id="news-laracon-au">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Let's go down under! Tickets are now available for <a href="https://laracon.au/" class="underline">Laracon AU</a>.
+        </div>
+    </template>
+
+    <template id="news-forge">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Servers with PHP 8.3 are now available for provisioning via <a href="https://forge.laravel.com/" class="underline">Laravel Forge</a>.
+        </div>
+    </template>
+
+    <template id="news-vapor">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            Deploy Laravel with the infinite scale of serverless using <a href="https://vapor.laravel.com/" class="underline">Laravel Vapor</a>.
+        </div>
+    </template>
+
+    <template id="news-cloud">
+        
+
+        <div class="mt-px ml-1">
+            Join the waitlist for <a href="https://cloud.laravel.com/" class="underline">Laravel Cloud</a>, the future of shipping.
+        </div>
+    </template>
+
+    <template id="news-pulse">
+        <div><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg></div>
+
+        <div class="mt-px ml-1">
+            How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline">Laravel Pulse</a>.
+        </div>
+    </template>
+
+    <template id="news-reverb">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3.707 6.293l2.586 -2.586a1 1 0 0 1 1.414 0l5.586 5.586a1 1 0 0 1 0 1.414l-2.586 2.586a1 1 0 0 1 -1.414 0l-5.586 -5.586a1 1 0 0 1 0 -1.414z" />
+              <path d="M6 10l-3 3l3 3l3 -3" />
+              <path d="M10 6l3 -3l3 3l-3 3" />
+              <path d="M12 12l1.5 1.5" />
+              <path d="M14.5 17a2.5 2.5 0 0 0 2.5 -2.5" />
+              <path d="M15 21a6 6 0 0 0 6 -6" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Incoming transmission received. <a href="https://reverb.laravel.com/" class="underline">Laravel Reverb</a> is now available!
+        </div>
+    </template>
+
+    <template id="news-nova">
+        <div>
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Take your administration backend to another dimension with <a href="https://nova.laravel.com/" class="underline">Laravel Nova</a>.
+        </div>
+    </template>
+
+    <template id="news-careers">
+        <div>
+            <svg class="w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+            </svg>
+        </div>
+
+        <div class="mt-px ml-1">
+            Laravel is hiring! <a href="https://laravel.com/careers" class="underline">Help us build the future of Laravel</a>.
+        </div>
+
+    </template>
+</div>
+<script>
+    const activeNewsTemplate = document.getElementById(
+        'news-'+JSON.parse('[\u0022cloud\u0022]')[Math.floor(Math.random() * 1)]
+    )
+
+    activeNewsTemplate.replaceWith(activeNewsTemplate.content)
+</script>
+
+    <div class="relative dark:bg-dark-700" id="docsScreen">
+        <div class="relative lg:flex lg:items-start">
+            <aside class="hidden fixed top-0 bottom-0 left-0 z-20 w-16 bg-gradient-to-b from-gray-100 to-white transition-all duration-300 lg:sticky lg:w-80 lg:shrink-0 lg:flex lg:flex-col lg:justify-end lg:items-end 2xl:max-w-lg 2xl:w-full dark:from-dark-800 dark:to-dark-700">
+                <div class="relative max-h-screen overflow-auto flex-1 flex flex-col xl:w-80">
+                    <a href="https://laravel.com/" class="flex items-center py-8 px-4 lg:px-8 xl:px-16">
+                        <img
+                            class="w-8 h-8 shrink-0 transition-all duration-300 lg:w-12 lg:h-12"
+                            src="https://laravel.com/img/logomark.min.svg"
+                            alt="Laravel"
+                            width="50"
+                            height="52"
+                        >
+                        <img
+                            src="https://laravel.com/img/logotype.min.svg"
+                            alt="Laravel"
+                            class="hidden ml-4 lg:block"
+                            width="114"
+                            height="29"
+                        >
+                    </a>
+                    <div class="px-4 pb-10 lg:px-8 xl:px-16">
+                        <nav id="indexed-nav" class="hidden lg:block lg:mt-4">
+                            <div class="docs_sidebar">
+                                <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li>
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>Digging Deeper</h2>
+<ul>
+<li>
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li class="active">
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                            </div>
+                        </nav>
+
+                        
+                        <template id="promote-forge">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Forge:</span> create and manage PHP 8 servers. Deploy your Laravel applications in seconds. <a class="underline text-red-600" href="https://forge.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-vapor">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Vapor:</span> experience extreme scale on a dedicated serverless platform for Laravel. <a class="underline text-red-600" href="https://vapor.laravel.com/">Sign up now!</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-nova">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Nova:</span> The next generation of Nova is <a class="underline text-red-600" href="https://nova.laravel.com/">now available</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-pulse">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Pulse:</span> How's your health? Check your application's vital signs using <a href="https://pulse.laravel.com/" class="underline text-red-600">Laravel Pulse</a>.
+                            </div>
+                        </template>
+
+                        <template id="promote-reverb">
+                            <div class="mt-4 px-3 py-2 border-dashed border-gray-200 border rounded-lg text-xs leading-loose text-gray-700 lg:block dark:border-gray-400 dark:text-gray-200">
+                                <span class="font-medium">Laravel Reverb:</span> You can easily build dynamic, real-time Laravel applications using WebSockets. <a href="https://reverb.laravel.com/" class="underline text-red-600">Laravel Reverb</a> is now available!
+                            </div>
+                        </template>
+                        <script>
+                            const activePromotionTemplate = document.getElementById(
+                                'promote-'+JSON.parse('[\u0022forge\u0022,\u0022vapor\u0022,\u0022nova\u0022,\u0022pulse\u0022,\u0022reverb\u0022]')[Math.floor(Math.random() * 5)]
+                            )
+
+                            activePromotionTemplate.replaceWith(activePromotionTemplate.content)
+                        </script>
+                    </div>
+                </div>
+            </aside>
+
+            <header
+                class="lg:hidden"
+                @keydown.window.escape="navIsOpen = false"
+                @click.away="navIsOpen = false"
+            >
+                <div class="relative mx-auto w-full py-10 bg-white transition duration-200 dark:bg-dark-700">
+                    <div class="mx-auto px-8 sm:px-16 flex items-center justify-between">
+                        <a href="https://laravel.com/" class="flex items-center">
+                            <img class="" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="50" height="52">
+                            <img class="hidden ml-5 sm:block" src="https://laravel.com/img/logotype.min.svg" alt="Laravel" width="114" height="29">
+                        </a>
+                        <div class="flex-1 flex items-center justify-end">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                            <button class="ml-2 relative w-10 h-10 p-2 text-red-600 lg:hidden focus:outline-none focus:shadow-outline" aria-label="Menu" @click.prevent="navIsOpen = !navIsOpen">
+                                <svg x-show="! navIsOpen" x-transition.opacity class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                                <svg x-show="navIsOpen" x-transition.opacity x-cloak class="absolute inset-0 mt-2 ml-2 w-6 h-6" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <span :class="{ 'shadow-sm': navIsOpen }" class="absolute inset-0 z-20 pointer-events-none"></span>
+                </div>
+                <div
+                    x-show="navIsOpen"
+                    x-transition:enter="duration-150"
+                    x-transition:leave="duration-100 ease-in"
+                    x-cloak
+                >
+                    <nav
+                        x-show="navIsOpen"
+                        x-cloak
+                        class="absolute w-full transform origin-top shadow-sm z-10"
+                        x-transition:enter="duration-150 ease-out"
+                        x-transition:enter-start="opacity-0 -translate-y-8 scale-75"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="duration-100 ease-in"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 -translate-y-8 scale-75"
+                    >
+                        <div class="relative p-8 bg-white docs_sidebar dark:bg-dark-600">
+                            <ul>
+<li>
+<h2>Prologue</h2>
+<ul>
+<li>
+<a href="releases.html">Release Notes</a>
+</li>
+<li>
+<a href="upgrade.html">Upgrade Guide</a>
+</li>
+<li>
+<a href="contributions.html">Contribution Guide</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Getting Started</h2>
+<ul>
+<li>
+<a href="installation.html">Installation</a>
+</li>
+<li>
+<a href="configuration.html">Configuration</a>
+</li>
+<li>
+<a href="structure.html">Directory Structure</a>
+</li>
+<li>
+<a href="frontend.html">Frontend</a>
+</li>
+<li>
+<a href="starter-kits.html">Starter Kits</a>
+</li>
+<li>
+<a href="deployment.html">Deployment</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Architecture Concepts</h2>
+<ul>
+<li>
+<a href="lifecycle.html">Request Lifecycle</a>
+</li>
+<li>
+<a href="container.html">Service Container</a>
+</li>
+<li>
+<a href="providers.html">Service Providers</a>
+</li>
+<li>
+<a href="facades.html">Facades</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>The Basics</h2>
+<ul>
+<li>
+<a href="routing.html">Routing</a>
+</li>
+<li>
+<a href="middleware.html">Middleware</a>
+</li>
+<li>
+<a href="csrf.html">CSRF Protection</a>
+</li>
+<li>
+<a href="controllers.html">Controllers</a>
+</li>
+<li>
+<a href="requests.html">Requests</a>
+</li>
+<li>
+<a href="responses.html">Responses</a>
+</li>
+<li>
+<a href="views.html">Views</a>
+</li>
+<li>
+<a href="blade.html">Blade Templates</a>
+</li>
+<li>
+<a href="vite.html">Asset Bundling</a>
+</li>
+<li>
+<a href="urls.html">URL Generation</a>
+</li>
+<li>
+<a href="session.html">Session</a>
+</li>
+<li>
+<a href="validation.html">Validation</a>
+</li>
+<li>
+<a href="errors.html">Error Handling</a>
+</li>
+<li>
+<a href="logging.html">Logging</a>
+</li>
+</ul>
+</li>
+<li class="sub--on">
+<h2>Digging Deeper</h2>
+<ul>
+<li>
+<a href="artisan.html">Artisan Console</a>
+</li>
+<li>
+<a href="broadcasting.html">Broadcasting</a>
+</li>
+<li>
+<a href="cache.html">Cache</a>
+</li>
+<li>
+<a href="collections.html">Collections</a>
+</li>
+<li>
+<a href="concurrency.html">Concurrency</a>
+</li>
+<li>
+<a href="context.html">Context</a>
+</li>
+<li>
+<a href="contracts.html">Contracts</a>
+</li>
+<li>
+<a href="events.html">Events</a>
+</li>
+<li>
+<a href="filesystem.html">File Storage</a>
+</li>
+<li>
+<a href="helpers.html">Helpers</a>
+</li>
+<li>
+<a href="http-client.html">HTTP Client</a>
+</li>
+<li>
+<a href="localization.html">Localization</a>
+</li>
+<li>
+<a href="mail.html">Mail</a>
+</li>
+<li>
+<a href="notifications.html">Notifications</a>
+</li>
+<li>
+<a href="packages.html">Package Development</a>
+</li>
+<li>
+<a href="processes.html">Processes</a>
+</li>
+<li>
+<a href="queues.html">Queues</a>
+</li>
+<li>
+<a href="rate-limiting.html">Rate Limiting</a>
+</li>
+<li>
+<a href="strings.html">Strings</a>
+</li>
+<li class="active">
+<a href="scheduling.html">Task Scheduling</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Security</h2>
+<ul>
+<li>
+<a href="authentication.html">Authentication</a>
+</li>
+<li>
+<a href="authorization.html">Authorization</a>
+</li>
+<li>
+<a href="verification.html">Email Verification</a>
+</li>
+<li>
+<a href="encryption.html">Encryption</a>
+</li>
+<li>
+<a href="hashing.html">Hashing</a>
+</li>
+<li>
+<a href="passwords.html">Password Reset</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Database</h2>
+<ul>
+<li>
+<a href="database.html">Getting Started</a>
+</li>
+<li>
+<a href="queries.html">Query Builder</a>
+</li>
+<li>
+<a href="pagination.html">Pagination</a>
+</li>
+<li>
+<a href="migrations.html">Migrations</a>
+</li>
+<li>
+<a href="seeding.html">Seeding</a>
+</li>
+<li>
+<a href="redis.html">Redis</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Eloquent ORM</h2>
+<ul>
+<li>
+<a href="eloquent.html">Getting Started</a>
+</li>
+<li>
+<a href="eloquent-relationships.html">Relationships</a>
+</li>
+<li>
+<a href="eloquent-collections.html">Collections</a>
+</li>
+<li>
+<a href="eloquent-mutators.html">Mutators / Casts</a>
+</li>
+<li>
+<a href="eloquent-resources.html">API Resources</a>
+</li>
+<li>
+<a href="eloquent-serialization.html">Serialization</a>
+</li>
+<li>
+<a href="eloquent-factories.html">Factories</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Testing</h2>
+<ul>
+<li>
+<a href="testing.html">Getting Started</a>
+</li>
+<li>
+<a href="http-tests.html">HTTP Tests</a>
+</li>
+<li>
+<a href="console-tests.html">Console Tests</a>
+</li>
+<li>
+<a href="dusk.html">Browser Tests</a>
+</li>
+<li>
+<a href="database-testing.html">Database</a>
+</li>
+<li>
+<a href="mocking.html">Mocking</a>
+</li>
+</ul>
+</li>
+<li>
+<h2>Packages</h2>
+<ul>
+<li>
+<a href="starter-kits.html#laravel-breeze">Breeze</a>
+</li>
+<li>
+<a href="billing.html">Cashier (Stripe)</a>
+</li>
+<li>
+<a href="cashier-paddle.html">Cashier (Paddle)</a>
+</li>
+<li>
+<a href="dusk.html">Dusk</a>
+</li>
+<li>
+<a href="envoy.html">Envoy</a>
+</li>
+<li>
+<a href="fortify.html">Fortify</a>
+</li>
+<li>
+<a href="folio.html">Folio</a>
+</li>
+<li>
+<a href="homestead.html">Homestead</a>
+</li>
+<li>
+<a href="horizon.html">Horizon</a>
+</li>
+<li>
+<a href="https://jetstream.laravel.com/">Jetstream</a>
+</li>
+<li>
+<a href="mix.html">Mix</a>
+</li>
+<li>
+<a href="octane.html">Octane</a>
+</li>
+<li>
+<a href="passport.html">Passport</a>
+</li>
+<li>
+<a href="pennant.html">Pennant</a>
+</li>
+<li>
+<a href="pint.html">Pint</a>
+</li>
+<li>
+<a href="precognition.html">Precognition</a>
+</li>
+<li>
+<a href="prompts.html">Prompts</a>
+</li>
+<li>
+<a href="pulse.html">Pulse</a>
+</li>
+<li>
+<a href="reverb.html">Reverb</a>
+</li>
+<li>
+<a href="sail.html">Sail</a>
+</li>
+<li>
+<a href="sanctum.html">Sanctum</a>
+</li>
+<li>
+<a href="scout.html">Scout</a>
+</li>
+<li>
+<a href="socialite.html">Socialite</a>
+</li>
+<li>
+<a href="telescope.html">Telescope</a>
+</li>
+<li>
+<a href="valet.html">Valet</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="https://laravel.com/api/11.x">API Documentation</a>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <section class="flex-1 dark:bg-dark-700">
+                <div class="max-w-screen-lg px-8 sm:px-16 lg:px-24">
+                    <div class="flex flex-col items-end border-b border-gray-200 py-1 transition-colors dark:border-gray-700 lg:mt-8 lg:flex-row-reverse">
+                        <div class="hidden lg:flex items-center justify-center ml-8">
+                            <button id="header__sun" onclick="toSystemMode()" title="Switch to system theme" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                                 </svg>
+                            </button>
+                            <button id="header__moon" onclick="toLightMode()" title="Switch to light mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95M17.33,17.97C14.5,17.81 11.7,16.64 9.53,14.5C7.36,12.31 6.2,9.5 6.04,6.68C3.23,9.82 3.34,14.64 6.35,17.66C9.37,20.67 14.19,20.78 17.33,17.97Z" />
+                                </svg>
+                            </button>
+                            <button id="header__indeterminate" onclick="toDarkMode()" title="Switch to dark mode" class="relative w-10 h-10 focus:outline-none focus:shadow-outline text-gray-500">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 4A8 8 0 0 1 20 12A8 8 0 0 1 12 20V4Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="w-full lg:w-40 lg:pl-12">
+                            <div>
+                                <label class="text-gray-600 text-xs tracking-widest uppercase dark:text-gray-500" for="version-switcher">Version</label>
+                                <div x-data class="relative w-full bg-white transition-all duration-500 focus-within:border-gray-600 dark:bg-gray-800">
+                                    <select
+                                        id="version-switcher"
+                                        aria-label="Laravel version"
+                                        class="appearance-none flex-1 w-full px-0 py-1 placeholder-gray-900 tracking-wide bg-white border-transparent focus:outline-none dark:bg-dark-700 dark:text-gray-400 dark:placeholder-gray-500"
+                                        @change="window.location = $event.target.value"
+                                    >
+                                                                                    <option  value="https://laravel.com/docs/master/scheduling">Master</option>
+                                                                                    <option selected value="scheduling.html">11.x</option>
+                                                                                    <option  value="https://laravel.com/docs/10.x/scheduling">10.x</option>
+                                                                                    <option  value="https://laravel.com/docs/9.x/scheduling">9.x</option>
+                                                                                    <option  value="https://laravel.com/docs/8.x/scheduling">8.x</option>
+                                                                                    <option  value="https://laravel.com/docs/7.x/scheduling">7.x</option>
+                                                                                    <option  value="https://laravel.com/docs/6.x/scheduling">6.x</option>
+                                                                                    <option  value="https://laravel.com/docs/5.8/scheduling">5.8</option>
+                                                                                    <option  value="https://laravel.com/docs/5.7/scheduling">5.7</option>
+                                                                                    <option  value="https://laravel.com/docs/5.6/scheduling">5.6</option>
+                                                                                    <option  value="https://laravel.com/docs/5.5/scheduling">5.5</option>
+                                                                                    <option  value="https://laravel.com/docs/5.4/scheduling">5.4</option>
+                                                                                    <option  value="https://laravel.com/docs/5.3/scheduling">5.3</option>
+                                                                                    <option  value="https://laravel.com/docs/5.2/scheduling">5.2</option>
+                                                                                    <option  value="https://laravel.com/docs/5.1/scheduling">5.1</option>
+                                                                                    <option  value="https://laravel.com/docs/5.0/scheduling">5.0</option>
+                                                                                    <option  value="https://laravel.com/docs/4.2/scheduling">4.2</option>
+                                                                            </select>
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none dark:hidden" src="https://laravel.com/img/icons/drop_arrow.min.svg" alt="" width="10" height="10">
+                                    <img class="absolute inset-y-0 right-0 mt-2.5 w-2.5 h-2.5 text-gray-900 pointer-events-none hidden dark:block" src="https://laravel.com/img/icons/drop_arrow.dark.min.svg" alt="" width="10" height="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative mt-8 flex items-center justify-end w-full h-10 lg:mt-0">
+                            <div class="flex-1 flex items-center">
+                                <button id="docsearch" class="text-gray-800 transition-colors dark:text-gray-400 w-full"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="mt-8 md:mt-16">
+                        <section class="docs_main max-w-prose">
+                            
+                            
+                            <div id="main-content">
+    <h1>Task Scheduling</h1>
+<ul>
+<li>
+<a href="#introduction">Introduction</a>
+</li>
+<li>
+<a href="#defining-schedules">Defining Schedules</a>
+<ul>
+<li>
+<a href="#scheduling-artisan-commands">Scheduling Artisan Commands</a>
+</li>
+<li>
+<a href="#scheduling-queued-jobs">Scheduling Queued Jobs</a>
+</li>
+<li>
+<a href="#scheduling-shell-commands">Scheduling Shell Commands</a>
+</li>
+<li>
+<a href="#schedule-frequency-options">Schedule Frequency Options</a>
+</li>
+<li>
+<a href="#timezones">Timezones</a>
+</li>
+<li>
+<a href="#preventing-task-overlaps">Preventing Task Overlaps</a>
+</li>
+<li>
+<a href="#running-tasks-on-one-server">Running Tasks on One Server</a>
+</li>
+<li>
+<a href="#background-tasks">Background Tasks</a>
+</li>
+<li>
+<a href="#maintenance-mode">Maintenance Mode</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#running-the-scheduler">Running the Scheduler</a>
+<ul>
+<li>
+<a href="#sub-minute-scheduled-tasks">Sub-Minute Scheduled Tasks</a>
+</li>
+<li>
+<a href="#running-the-scheduler-locally">Running the Scheduler Locally</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#task-output">Task Output</a>
+</li>
+<li>
+<a href="#task-hooks">Task Hooks</a>
+</li>
+<li>
+<a href="#events">Events</a>
+</li>
+</ul>
+<h2 id="introduction"><a href="#introduction">Introduction</a></h2>
+<p>In the past, you may have written a cron configuration entry for each task you needed to schedule on your server. However, this can quickly become a pain because your task schedule is no longer in source control and you must SSH into your server to view your existing cron entries or add additional entries.</p>
+<p>Laravel's command scheduler offers a fresh approach to managing scheduled tasks on your server. The scheduler allows you to fluently and expressively define your command schedule within your Laravel application itself. When using the scheduler, only a single cron entry is needed on your server. Your task schedule is typically defined in your application's <code>routes/console.php</code> file.</p>
+<h2 id="defining-schedules"><a href="#defining-schedules">Defining Schedules</a></h2>
+<p>You may define all of your scheduled tasks in your application's <code>routes/console.php</code> file. To get started, let's take a look at an example. In this example, we will schedule a closure to be called every day at midnight. Within the closure we will execute a database query to clear a table:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D3423E;">&lt;?php</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">DB</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">DB</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">table</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">recent_users</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">delete</span><span style="color: #BFC7D5;">();</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>In addition to scheduling using closures, you may also schedule <a href="https://secure.php.net/manual/en/language.oop5.magic.php#object.invoke">invokable objects</a>. Invokable objects are simple PHP classes that contain an <code>__invoke</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">DeleteRecentUsers</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>If you prefer to reserve your <code>routes/console.php</code> file for command definitions only, you may use the <code>withSchedule</code> method in your application's <code>bootstrap/app.php</code> file to define your scheduled tasks. This method accepts a closure that receives an instance of the scheduler:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Console\Scheduling\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withSchedule</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$schedule</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #BEC5D4;">$schedule</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">DeleteRecentUsers</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div><div class='line'><span style="color: #BFC7D5;">})</span></div></code></pre>
+<p>If you would like to view an overview of your scheduled tasks and the next time they are scheduled to run, you may use the <code>schedule:list</code> Artisan command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="bash" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">schedule:list</span></div></code></pre>
+</div>
+<h3 id="scheduling-artisan-commands"><a href="#scheduling-artisan-commands">Scheduling Artisan Commands</a></h3>
+<p>In addition to scheduling closures, you may also schedule <a href="artisan.html">Artisan commands</a> and system commands. For example, you may use the <code>command</code> method to schedule an Artisan command using either the command's name or class.</p>
+<p>When scheduling Artisan commands using the command's class name, you may pass an array of additional command-line arguments that should be provided to the command when it is invoked:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Console\Commands\</span><span style="color: #FFCB8B;">SendEmailsCommand</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send Taylor --force</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #FFCB8B;">SendEmailsCommand</span><span style="color: #89DDFF;">::</span><span style="color: #C792EA;">class</span><span style="color: #BFC7D5;">, [</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--force</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h4 id="scheduling-artisan-closure-commands"><a href="#scheduling-artisan-closure-commands">Scheduling Artisan Closure Commands</a></h4>
+<p>If you want to schedule an Artisan command defined by a closure, you may chain the scheduling related methods after the command's definition:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">delete:recent-users</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">DB</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">table</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">recent_users</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">delete</span><span style="color: #BFC7D5;">();</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">purpose</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Delete recent users</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>If you need to pass arguments to the closure command, you may provide them to the <code>schedule</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Artisan</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send {user} {--force}</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #BEC5D4;">$user</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">purpose</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Send emails to the specified user</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">schedule</span><span style="color: #BFC7D5;">([</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">Taylor</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">--force</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">])</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h3 id="scheduling-queued-jobs"><a href="#scheduling-queued-jobs">Scheduling Queued Jobs</a></h3>
+<p>The <code>job</code> method may be used to schedule a <a href="queues.html">queued job</a>. This method provides a convenient way to schedule queued jobs without using the <code>call</code> method to define closures to queue the job:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Jobs\</span><span style="color: #FFCB8B;">Heartbeat</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">job</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Heartbeat</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyFiveMinutes</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>Optional second and third arguments may be provided to the <code>job</code> method which specifies the queue name and queue connection that should be used to queue the job:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Jobs\</span><span style="color: #FFCB8B;">Heartbeat</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Dispatch the job to the &quot;heartbeats&quot; queue on the &quot;sqs&quot; connection...</span></div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">job</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">Heartbeat</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">heartbeats</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">sqs</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyFiveMinutes</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h3 id="scheduling-shell-commands"><a href="#scheduling-shell-commands">Scheduling Shell Commands</a></h3>
+<p>The <code>exec</code> method may be used to issue a command to the operating system:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">exec</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">node /home/forge/script.js</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h3 id="schedule-frequency-options"><a href="#schedule-frequency-options">Schedule Frequency Options</a></h3>
+<p>We've already seen a few examples of how you may configure a task to run at specified intervals. However, there are many more task schedule frequencies that you may assign to a task:</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-&gt;cron('* * * * *');</code></td>
+<td>Run the task on a custom cron schedule.</td>
+</tr>
+<tr>
+<td><code>-&gt;everySecond();</code></td>
+<td>Run the task every second.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTwoSeconds();</code></td>
+<td>Run the task every two seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFiveSeconds();</code></td>
+<td>Run the task every five seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTenSeconds();</code></td>
+<td>Run the task every ten seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFifteenSeconds();</code></td>
+<td>Run the task every fifteen seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTwentySeconds();</code></td>
+<td>Run the task every twenty seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyThirtySeconds();</code></td>
+<td>Run the task every thirty seconds.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyMinute();</code></td>
+<td>Run the task every minute.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTwoMinutes();</code></td>
+<td>Run the task every two minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyThreeMinutes();</code></td>
+<td>Run the task every three minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFourMinutes();</code></td>
+<td>Run the task every four minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFiveMinutes();</code></td>
+<td>Run the task every five minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTenMinutes();</code></td>
+<td>Run the task every ten minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFifteenMinutes();</code></td>
+<td>Run the task every fifteen minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyThirtyMinutes();</code></td>
+<td>Run the task every thirty minutes.</td>
+</tr>
+<tr>
+<td><code>-&gt;hourly();</code></td>
+<td>Run the task every hour.</td>
+</tr>
+<tr>
+<td><code>-&gt;hourlyAt(17);</code></td>
+<td>Run the task every hour at 17 minutes past the hour.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyOddHour($minutes = 0);</code></td>
+<td>Run the task every odd hour.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyTwoHours($minutes = 0);</code></td>
+<td>Run the task every two hours.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyThreeHours($minutes = 0);</code></td>
+<td>Run the task every three hours.</td>
+</tr>
+<tr>
+<td><code>-&gt;everyFourHours($minutes = 0);</code></td>
+<td>Run the task every four hours.</td>
+</tr>
+<tr>
+<td><code>-&gt;everySixHours($minutes = 0);</code></td>
+<td>Run the task every six hours.</td>
+</tr>
+<tr>
+<td><code>-&gt;daily();</code></td>
+<td>Run the task every day at midnight.</td>
+</tr>
+<tr>
+<td><code>-&gt;dailyAt('13:00');</code></td>
+<td>Run the task every day at 13:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;twiceDaily(1, 13);</code></td>
+<td>Run the task daily at 1:00 &amp; 13:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;twiceDailyAt(1, 13, 15);</code></td>
+<td>Run the task daily at 1:15 &amp; 13:15.</td>
+</tr>
+<tr>
+<td><code>-&gt;weekly();</code></td>
+<td>Run the task every Sunday at 00:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;weeklyOn(1, '8:00');</code></td>
+<td>Run the task every week on Monday at 8:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;monthly();</code></td>
+<td>Run the task on the first day of every month at 00:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;monthlyOn(4, '15:00');</code></td>
+<td>Run the task every month on the 4th at 15:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;twiceMonthly(1, 16, '13:00');</code></td>
+<td>Run the task monthly on the 1st and 16th at 13:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;lastDayOfMonth('15:00');</code></td>
+<td>Run the task on the last day of the month at 15:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;quarterly();</code></td>
+<td>Run the task on the first day of every quarter at 00:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;quarterlyOn(4, '14:00');</code></td>
+<td>Run the task every quarter on the 4th at 14:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;yearly();</code></td>
+<td>Run the task on the first day of every year at 00:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;yearlyOn(6, 1, '17:00');</code></td>
+<td>Run the task every year on June 1st at 17:00.</td>
+</tr>
+<tr>
+<td><code>-&gt;timezone('America/New_York');</code></td>
+<td>Set the timezone for the task.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These methods may be combined with additional constraints to create even more finely tuned schedules that only run on certain days of the week. For example, you may schedule a command to run weekly on Monday:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Run once per week on Monday at 1 PM...</span></div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #697098;">//</span><span style="color: #697098;"> ...</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">weekly</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">mondays</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">at</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">13:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #697098;">//</span><span style="color: #697098;"> Run hourly from 8 AM to 5 PM on weekdays...</span></div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">foo</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">          </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">weekdays</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">          </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">hourly</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">          </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">timezone</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">America/Chicago</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">          </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">between</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">8:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">17:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>A list of additional schedule constraints may be found below:</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-&gt;weekdays();</code></td>
+<td>Limit the task to weekdays.</td>
+</tr>
+<tr>
+<td><code>-&gt;weekends();</code></td>
+<td>Limit the task to weekends.</td>
+</tr>
+<tr>
+<td><code>-&gt;sundays();</code></td>
+<td>Limit the task to Sunday.</td>
+</tr>
+<tr>
+<td><code>-&gt;mondays();</code></td>
+<td>Limit the task to Monday.</td>
+</tr>
+<tr>
+<td><code>-&gt;tuesdays();</code></td>
+<td>Limit the task to Tuesday.</td>
+</tr>
+<tr>
+<td><code>-&gt;wednesdays();</code></td>
+<td>Limit the task to Wednesday.</td>
+</tr>
+<tr>
+<td><code>-&gt;thursdays();</code></td>
+<td>Limit the task to Thursday.</td>
+</tr>
+<tr>
+<td><code>-&gt;fridays();</code></td>
+<td>Limit the task to Friday.</td>
+</tr>
+<tr>
+<td><code>-&gt;saturdays();</code></td>
+<td>Limit the task to Saturday.</td>
+</tr>
+<tr>
+<td><code>-&gt;days(array|mixed);</code></td>
+<td>Limit the task to specific days.</td>
+</tr>
+<tr>
+<td><code>-&gt;between($startTime, $endTime);</code></td>
+<td>Limit the task to run between start and end times.</td>
+</tr>
+<tr>
+<td><code>-&gt;unlessBetween($startTime, $endTime);</code></td>
+<td>Limit the task to not run between start and end times.</td>
+</tr>
+<tr>
+<td><code>-&gt;when(Closure);</code></td>
+<td>Limit the task based on a truth test.</td>
+</tr>
+<tr>
+<td><code>-&gt;environments($env);</code></td>
+<td>Limit the task to specific environments.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="day-constraints"><a href="#day-constraints">Day Constraints</a></h4>
+<p>The <code>days</code> method may be used to limit the execution of a task to specific days of the week. For example, you may schedule a command to run hourly on Sundays and Wednesdays:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">hourly</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">days</span><span style="color: #BFC7D5;">([</span><span style="color: #F78C6C;">0</span><span style="color: #BFC7D5;">, </span><span style="color: #F78C6C;">3</span><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<p>Alternatively, you may use the constants available on the <code>Illuminate\Console\Scheduling\Schedule</code> class when defining the days on which a task should run:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\</span><span style="color: #FFCB8B;">Facades</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Console\Scheduling\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #BFC7D5;">Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">hourly</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">days</span><span style="color: #BFC7D5;">([</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">SUNDAY</span><span style="color: #BFC7D5;">, </span><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">WEDNESDAY</span><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<h4 id="between-time-constraints"><a href="#between-time-constraints">Between Time Constraints</a></h4>
+<p>The <code>between</code> method may be used to limit the execution of a task based on the time of day:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">hourly</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">                    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">between</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">7:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">22:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>Similarly, the <code>unlessBetween</code> method can be used to exclude the execution of a task for a period of time:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">hourly</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">                    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">unlessBetween</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">23:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">4:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h4 id="truth-test-constraints"><a href="#truth-test-constraints">Truth Test Constraints</a></h4>
+<p>The <code>when</code> method may be used to limit the execution of a task based on the result of a given truth test. In other words, if the given closure returns <code>true</code>, the task will execute as long as no other constraining conditions prevent the task from running:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">when</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>The <code>skip</code> method may be seen as the inverse of <code>when</code>. If the <code>skip</code> method returns <code>true</code>, the scheduled task will not be executed:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">skip</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #C792EA;">return</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">true</span><span style="color: #BFC7D5;">;</span></div><div class='line'><span style="color: #BFC7D5;">});</span></div></code></pre>
+<p>When using chained <code>when</code> methods, the scheduled command will only execute if all <code>when</code> conditions return <code>true</code>.</p>
+<h4 id="environment-constraints"><a href="#environment-constraints">Environment Constraints</a></h4>
+<p>The <code>environments</code> method may be used to execute tasks only on the given environments (as defined by the <code>APP_ENV</code> <a href="configuration.html#environment-configuration">environment variable</a>):</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">environments</span><span style="color: #BFC7D5;">([</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">staging</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">, </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">production</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">]);</span></div></code></pre>
+<h3 id="timezones"><a href="#timezones">Timezones</a></h3>
+<p>Using the <code>timezone</code> method, you may specify that a scheduled task's time should be interpreted within a given timezone:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">report:generate</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">timezone</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">America/New_York</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">at</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">2:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div></code></pre>
+<p>If you are repeatedly assigning the same timezone to all of your scheduled tasks, you can specify which timezone should be assigned to all schedules by defining a <code>schedule_timezone</code> option within your application's <code>app</code> configuration file:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">timezone</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #82AAFF;">env</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">APP_TIMEZONE</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span><span style="color: #82AAFF;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">UTC</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">),</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">schedule_timezone</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">=&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">America/Chicago</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">,</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+Remember that some timezones utilize daylight savings time. When daylight saving time changes occur, your scheduled task may run twice or even not run at all. For this reason, we recommend avoiding timezone scheduling when possible.</p>
+</div>
+<h3 id="preventing-task-overlaps"><a href="#preventing-task-overlaps">Preventing Task Overlaps</a></h3>
+<p>By default, scheduled tasks will be run even if the previous instance of the task is still running. To prevent this, you may use the <code>withoutOverlapping</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withoutOverlapping</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>In this example, the <code>emails:send</code> <a href="artisan.html">Artisan command</a> will be run every minute if it is not already running. The <code>withoutOverlapping</code> method is especially useful if you have tasks that vary drastically in their execution time, preventing you from predicting exactly how long a given task will take.</p>
+<p>If needed, you may specify how many minutes must pass before the &quot;without overlapping&quot; lock expires. By default, the lock will expire after 24 hours:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">withoutOverlapping</span><span style="color: #BFC7D5;">(</span><span style="color: #F78C6C;">10</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>Behind the scenes, the <code>withoutOverlapping</code> method utilizes your application's <a href="cache.html">cache</a> to obtain locks. If necessary, you can clear these cache locks using the <code>schedule:clear-cache</code> Artisan command. This is typically only necessary if a task becomes stuck due to an unexpected server problem.</p>
+<h3 id="running-tasks-on-one-server"><a href="#running-tasks-on-one-server">Running Tasks on One Server</a></h3>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+To utilize this feature, your application must be using the <code>database</code>, <code>memcached</code>, <code>dynamodb</code>, or <code>redis</code> cache driver as your application's default cache driver. In addition, all servers must be communicating with the same central cache server.</p>
+</div>
+<p>If your application's scheduler is running on multiple servers, you may limit a scheduled job to only execute on a single server. For instance, assume you have a scheduled task that generates a new report every Friday night. If the task scheduler is running on three worker servers, the scheduled task will run on all three servers and generate the report three times. Not good!</p>
+<p>To indicate that the task should run on only one server, use the <code>onOneServer</code> method when defining the scheduled task. The first server to obtain the task will secure an atomic lock on the job to prevent other servers from running the same task at the same time:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">report:generate</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">fridays</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">at</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">17:00</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">                </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onOneServer</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h4 id="naming-unique-jobs"><a href="#naming-unique-jobs">Naming Single Server Jobs</a></h4>
+<p>Sometimes you may need to schedule the same job to be dispatched with different parameters, while still instructing Laravel to run each permutation of the job on a single server. To accomplish this, you may assign each schedule definition a unique name via the <code>name</code> method:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">job</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">CheckUptime</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">https://laravel.com</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">))</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">name</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">check_uptime:laravel.com</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyFiveMinutes</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onOneServer</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">job</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">CheckUptime</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">https://vapor.laravel.com</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">))</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">name</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">check_uptime:vapor.laravel.com</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyFiveMinutes</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">            </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onOneServer</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+</div>
+<p>Similarly, scheduled closures must be assigned a name if they are intended to be run on one server:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">fn</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> =&gt; </span><span style="color: #FFCB8B;">User</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">resetApiRequestCount</span><span style="color: #BFC7D5;">())</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">name</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">reset-api-request-count</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onOneServer</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+</div>
+<h3 id="background-tasks"><a href="#background-tasks">Background Tasks</a></h3>
+<p>By default, multiple tasks scheduled at the same time will execute sequentially based on the order they are defined in your <code>schedule</code> method. If you have long-running tasks, this may cause subsequent tasks to start much later than anticipated. If you would like to run tasks in the background so that they may all run simultaneously, you may use the <code>runInBackground</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">analytics:report</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">runInBackground</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+The <code>runInBackground</code> method may only be used when scheduling tasks via the <code>command</code> and <code>exec</code> methods.</p>
+</div>
+<h3 id="maintenance-mode"><a href="#maintenance-mode">Maintenance Mode</a></h3>
+<p>Your application's scheduled tasks will not run when the application is in <a href="configuration.html#maintenance-mode">maintenance mode</a>, since we don't want your tasks to interfere with any unfinished maintenance you may be performing on your server. However, if you would like to force a task to run even in maintenance mode, you may call the <code>evenInMaintenanceMode</code> method when defining the task:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">evenInMaintenanceMode</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h2 id="running-the-scheduler"><a href="#running-the-scheduler">Running the Scheduler</a></h2>
+<p>Now that we have learned how to define scheduled tasks, let's discuss how to actually run them on our server. The <code>schedule:run</code> Artisan command will evaluate all of your scheduled tasks and determine if they need to run based on the server's current time.</p>
+<p>So, when using Laravel's scheduler, we only need to add a single cron configuration entry to our server that runs the <code>schedule:run</code> command every minute. If you do not know how to add cron entries to your server, consider using a service such as <a href="https://forge.laravel.com/">Laravel Forge</a> which can manage the cron entries for you:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #89DDFF;">*</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">*</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">*</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">*</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">*</span><span style="color: #BFC7D5;"> cd /path-to-your-project &amp;&amp; php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">schedule:run</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">&gt;&gt;</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">/dev/null</span><span style="color: #BFC7D5;"> </span><span style="color: #89DDFF;">2&gt;&amp;1</span></div></code></pre>
+</div>
+<h3 id="sub-minute-scheduled-tasks"><a href="#sub-minute-scheduled-tasks">Sub-Minute Scheduled Tasks</a></h3>
+<p>On most operating systems, cron jobs are limited to running a maximum of once per minute. However, Laravel's scheduler allows you to schedule tasks to run at more frequent intervals, even as often as once per second:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">call</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">    </span><span style="color: #FFCB8B;">DB</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">table</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">recent_users</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">delete</span><span style="color: #BFC7D5;">();</span></div><div class='line'><span style="color: #BFC7D5;">})</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everySecond</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<p>When sub-minute tasks are defined within your application, the <code>schedule:run</code> command will continue running until the end of the current minute instead of exiting immediately. This allows the command to invoke all required sub-minute tasks throughout the minute.</p>
+<p>Since sub-minute tasks that take longer than expected to run could delay the execution of later sub-minute tasks, it is recommended that all sub-minute tasks dispatch queued jobs or background commands to handle the actual task processing:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> App\Jobs\</span><span style="color: #FFCB8B;">DeleteRecentUsers</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">job</span><span style="color: #BFC7D5;">(</span><span style="color: #89DDFF;">new</span><span style="color: #BFC7D5;"> </span><span style="color: #FFCB8B;">DeleteRecentUsers</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyTenSeconds</span><span style="color: #BFC7D5;">();</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">users:delete</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">everyTenSeconds</span><span style="color: #BFC7D5;">()</span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">runInBackground</span><span style="color: #BFC7D5;">();</span></div></code></pre>
+<h4 id="interrupting-sub-minute-tasks"><a href="#interrupting-sub-minute-tasks">Interrupting Sub-Minute Tasks</a></h4>
+<p>As the <code>schedule:run</code> command runs for the entire minute of invocation when sub-minute tasks are defined, you may sometimes need to interrupt the command when deploying your application. Otherwise, an instance of the <code>schedule:run</code> command that is already running would continue using your application's previously deployed code until the current minute ends.</p>
+<p>To interrupt in-progress <code>schedule:run</code> invocations, you may add the <code>schedule:interrupt</code> command to your application's deployment script. This command should be invoked after your application is finished deploying:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">schedule:interrupt</span></div></code></pre>
+</div>
+<h3 id="running-the-scheduler-locally"><a href="#running-the-scheduler-locally">Running the Scheduler Locally</a></h3>
+<p>Typically, you would not add a scheduler cron entry to your local development machine. Instead, you may use the <code>schedule:work</code> Artisan command. This command will run in the foreground and invoke the scheduler every minute until you terminate the command:</p>
+<div class="code-container">
+<pre><code data-theme="olaolu-palenight" data-lang="shell" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #BFC7D5;">php </span><span style="color: #BFC7D5;">artisan</span><span style="color: #BFC7D5;"> </span><span style="color: #BFC7D5;">schedule:work</span></div></code></pre>
+</div>
+<h2 id="task-output"><a href="#task-output">Task Output</a></h2>
+<p>The Laravel scheduler provides several convenient methods for working with the output generated by scheduled tasks. First, using the <code>sendOutputTo</code> method, you may send the output to a file for later inspection:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">sendOutputTo</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$filePath</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>If you would like to append the output to a given file, you may use the <code>appendOutputTo</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">appendOutputTo</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$filePath</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>Using the <code>emailOutputTo</code> method, you may email the output to an email address of your choice. Before emailing the output of a task, you should configure Laravel's <a href="mail.html">email services</a>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">report:generate</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">sendOutputTo</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$filePath</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">emailOutputTo</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;"><a href="https://laravel.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6317021a0f0c1123061b020e130f064d000c0e">[email&#160;protected]</a></span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>If you only want to email the output if the scheduled Artisan or system command terminates with a non-zero exit code, use the <code>emailOutputOnFailure</code> method:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">report:generate</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">emailOutputOnFailure</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;"><a href="https://laravel.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7a3b6aebbb8a597b2afb6baa7bbb2f9b4b8ba">[email&#160;protected]</a></span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<div class="mb-10 max-w-2xl mx-auto px-4 py-8 shadow-lg lg:flex lg:items-center callout">
+    <div class="w-20 h-20 mb-6 flex items-center justify-center shrink-0 lg:mb-0 bg-red-600">
+        <div class="opacity-75"><svg width="6" height="35" viewBox="0 0 6 35" xmlns="http://www.w3.org/2000/svg"><title>exclamation</title><path d="M0 29h6v6H0v-6zM0 0h6v24H0V0z" fill="#FFF" fill-rule="nonzero"/></svg>
+</div>
+    </div>
+    <p class="mb-0 lg:ml-6 callout">
+The <code>emailOutputTo</code>, <code>emailOutputOnFailure</code>, <code>sendOutputTo</code>, and <code>appendOutputTo</code> methods are exclusive to the <code>command</code> and <code>exec</code> methods.</p>
+</div>
+<h2 id="task-hooks"><a href="#task-hooks">Task Hooks</a></h2>
+<p>Using the <code>before</code> and <code>after</code> methods, you may specify code to be executed before and after the scheduled task is executed:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\Facades\</span><span style="color: #FFCB8B;">Schedule</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">before</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task is about to execute...</span></div><div class='line'><span style="color: #BFC7D5;">         })</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">after</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task has executed...</span></div><div class='line'><span style="color: #BFC7D5;">         });</span></div></code></pre>
+<p>The <code>onSuccess</code> and <code>onFailure</code> methods allow you to specify code to be executed if the scheduled task succeeds or fails. A failure indicates that the scheduled Artisan or system command terminated with a non-zero exit code:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onSuccess</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task succeeded...</span></div><div class='line'><span style="color: #BFC7D5;">         })</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onFailure</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">()</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task failed...</span></div><div class='line'><span style="color: #BFC7D5;">         });</span></div></code></pre>
+<p>If output is available from your command, you may access it in your <code>after</code>, <code>onSuccess</code> or <code>onFailure</code> hooks by type-hinting an <code>Illuminate\Support\Stringable</code> instance as the <code>$output</code> argument of your hook's closure definition:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #C792EA;">use</span><span style="color: #BFC7D5;"> Illuminate\Support\</span><span style="color: #FFCB8B;">Stringable</span><span style="color: #BFC7D5;">;</span></div><div class='line'>&nbsp;</div><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onSuccess</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Stringable</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$output</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task succeeded...</span></div><div class='line'><span style="color: #BFC7D5;">         })</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">onFailure</span><span style="color: #BFC7D5;">(</span><span style="color: #C792EA;">function</span><span style="color: #BFC7D5;"> </span><span style="color: #D9F5DD;">(</span><span style="color: #FFCB8B;">Stringable</span><span style="color: #BFC7D5;"> </span><span style="color: #BEC5D4;">$output</span><span style="color: #D9F5DD;">)</span><span style="color: #BFC7D5;"> {</span></div><div class='line'><span style="color: #BFC7D5;">             </span><span style="color: #697098;">//</span><span style="color: #697098;"> The task failed...</span></div><div class='line'><span style="color: #BFC7D5;">         });</span></div></code></pre>
+<h4 id="pinging-urls"><a href="#pinging-urls">Pinging URLs</a></h4>
+<p>Using the <code>pingBefore</code> and <code>thenPing</code> methods, the scheduler can automatically ping a given URL before or after a task is executed. This method is useful for notifying an external service, such as <a href="https://envoyer.io/">Envoyer</a>, that your scheduled task is beginning or has finished execution:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">pingBefore</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$url</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">thenPing</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$url</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>The <code>pingBeforeIf</code> and <code>thenPingIf</code> methods may be used to ping a given URL only if a given condition is <code>true</code>:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">pingBeforeIf</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$condition</span><span style="color: #BFC7D5;">, </span><span style="color: #BEC5D4;">$url</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">thenPingIf</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$condition</span><span style="color: #BFC7D5;">, </span><span style="color: #BEC5D4;">$url</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<p>The <code>pingOnSuccess</code> and <code>pingOnFailure</code> methods may be used to ping a given URL only if the task succeeds or fails. A failure indicates that the scheduled Artisan or system command terminated with a non-zero exit code:</p>
+<pre><code data-theme="olaolu-palenight" data-lang="php" class='torchlight' style='background-color: #292D3E; --theme-selection-background: #7580B850;'><!-- Syntax highlighted by torchlight.dev --><div class='line'><span style="color: #FFCB8B;">Schedule</span><span style="color: #89DDFF;">::</span><span style="color: #82AAFF;">command</span><span style="color: #BFC7D5;">(</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #C3E88D;">emails:send</span><span style="color: #D9F5DD;">&#39;</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">daily</span><span style="color: #BFC7D5;">()</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">pingOnSuccess</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$successUrl</span><span style="color: #BFC7D5;">)</span></div><div class='line'><span style="color: #BFC7D5;">         </span><span style="color: #89DDFF;">-&gt;</span><span style="color: #82AAFF;">pingOnFailure</span><span style="color: #BFC7D5;">(</span><span style="color: #BEC5D4;">$failureUrl</span><span style="color: #BFC7D5;">);</span></div></code></pre>
+<h2 id="events"><a href="#events">Events</a></h2>
+<p>Laravel dispatches a variety of <a href="events.html">events</a> during the scheduling process. You may <a href="events.html">define listeners</a> for any of the following events:</p>
+<div class="overflow-auto">
+<table>
+<thead>
+<tr>
+<th>Event Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Illuminate\Console\Events\ScheduledTaskStarting</code></td>
+</tr>
+<tr>
+<td><code>Illuminate\Console\Events\ScheduledTaskFinished</code></td>
+</tr>
+<tr>
+<td><code>Illuminate\Console\Events\ScheduledBackgroundTaskFinished</code></td>
+</tr>
+<tr>
+<td><code>Illuminate\Console\Events\ScheduledTaskSkipped</code></td>
+</tr>
+<tr>
+<td><code>Illuminate\Console\Events\ScheduledTaskFailed</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+                                <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async type="text/javascript" src="../../../cdn.carbonads.com/carbon83bb.js?serve=CKYILK3E&amp;placement=laravelcom" id="_carbonads_js"></script>
+</div>
+                        </section>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+<footer class="relative pt-12 dark:bg-dark-700">
+    <div class="max-w-screen-2xl mx-auto w-full px-8">
+        <div>
+            <a href="https://laravel.com/" class="inline-flex">
+                <img class="w-16 h-16" src="https://laravel.com/img/logomark.min.svg" alt="Laravel" width="64" height="64" loading="lazy">
+            </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-12 md:gap-x-8 gap-y-12 sm:mt-12">
+            <div class="col-span-12 lg:col-span-4">
+                <p class="max-w-sm text-xs text-gray-700 sm:text-sm dark:text-gray-500">
+                    Laravel is a web application framework with expressive, elegant syntax. We believe development must
+                    be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain
+                    out of development by easing common tasks used in most web projects.</p>
+                <ul class="mt-6 flex items-center space-x-3">
+                    <li>
+                        <a href="https://x.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6" src="https://laravel.com/img/social/x.dark.min.svg" alt="X" width="24" height="20" loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6" src="https://laravel.com/img/social/x.min.svg" alt="X" width="24" height="20" loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/github.dark.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/github.min.svg" alt="GitHub" width="24" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.gg/laravel">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/discord.dark.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/discord.min.svg" alt="Discord" width="21" height="24"
+                                loading="lazy">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/laravelphp">
+                            <img class="hidden dark:inline-block w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.dark.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                            <img class="inline-block dark:hidden w-6 h-6"
+                                src="https://laravel.com/img/social/youtube.min.svg" alt="YouTube" width="169" height="150"
+                                loading="lazy">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Highlights</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="releases.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Release Notes</a>
+                                </li>
+                                                            <li>
+                                    <a href="installation.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Getting Started</a>
+                                </li>
+                                                            <li>
+                                    <a href="routing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Routing</a>
+                                </li>
+                                                            <li>
+                                    <a href="blade.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Blade Templates</a>
+                                </li>
+                                                            <li>
+                                    <a href="authentication.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authentication</a>
+                                </li>
+                                                            <li>
+                                    <a href="authorization.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Authorization</a>
+                                </li>
+                                                            <li>
+                                    <a href="artisan.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Artisan Console</a>
+                                </li>
+                                                            <li>
+                                    <a href="database.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Database</a>
+                                </li>
+                                                            <li>
+                                    <a href="eloquent.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Eloquent ORM</a>
+                                </li>
+                                                            <li>
+                                    <a href="testing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Testing</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Resources</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://bootcamp.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel Bootcamp</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracasts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel-news.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laravel News</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.us/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.au/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon AU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.eu/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon EU</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracon.in/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Laracon India</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larabelles.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Larabelles</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/careers"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Careers</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://larajobs.com/?partner=5"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jobs</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laracasts.com/discuss"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forums</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://laravel.com/trademark"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Trademark</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Partners</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="https://vehikl.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vehikl</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://webreinvent.com/?utm_source=laravel&amp;utm_medium=laravel.com&amp;utm_campaign=footer-link"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">WebReinvent</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://tighten.co/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Tighten</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.bacancytechnology.com/hire-laravel-developer?utm_source=laravel&amp;utm_medium=partners.laravel&amp;utm_campaign=sponsors"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Bacancy</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://64robots.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">64 Robots</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://activelogic.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Active Logic</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.blackairplane.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Black Airplane</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.byte5.net/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Byte 5</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.curotec.com/services/technologies/laravel/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Curotec</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.cyber-duck.co.uk/how-we-work/technology/laravel?utm_source=Laravel%20Partner&amp;utm_medium=Sponsorship"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cyber-Duck</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://devsquad.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">DevSquad</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jump24.co.uk/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jump24</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://kirschbaumdevelopment.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Kirschbaum</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                            <div class="text-xs col-span-6 md:col-span-3 lg:col-span-2">
+                    <span
+                        class="uppercase dark:text-gray-200">Ecosystem</span>
+                    <div class="mt-5">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-500">
+                                                            <li>
+                                    <a href="starter-kits.html#laravel-breeze"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Breeze</a>
+                                </li>
+                                                            <li>
+                                    <a href="billing.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Cashier</a>
+                                </li>
+                                                            <li>
+                                    <a href="dusk.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Dusk</a>
+                                </li>
+                                                            <li>
+                                    <a href="broadcasting.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Echo</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://envoyer.io/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Envoyer</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://forge.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Forge</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://herd.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Herd</a>
+                                </li>
+                                                            <li>
+                                    <a href="horizon.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Horizon</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://inertiajs.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Inertia</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://jetstream.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Jetstream</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://livewire.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Livewire</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://nova.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Nova</a>
+                                </li>
+                                                            <li>
+                                    <a href="octane.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Octane</a>
+                                </li>
+                                                            <li>
+                                    <a href="pennant.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pennant</a>
+                                </li>
+                                                            <li>
+                                    <a href="pint.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pint</a>
+                                </li>
+                                                            <li>
+                                    <a href="prompts.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Prompts</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://pulse.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Pulse</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://reverb.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Reverb</a>
+                                </li>
+                                                            <li>
+                                    <a href="sail.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sail</a>
+                                </li>
+                                                            <li>
+                                    <a href="sanctum.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Sanctum</a>
+                                </li>
+                                                            <li>
+                                    <a href="scout.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Scout</a>
+                                </li>
+                                                            <li>
+                                    <a href="socialite.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Socialite</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://spark.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Spark</a>
+                                </li>
+                                                            <li>
+                                    <a href="telescope.html"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Telescope</a>
+                                </li>
+                                                            <li>
+                                    <a href="https://vapor.laravel.com/"
+                                        class="transition-colors hover:text-gray-600 dark:hover:text-gray-400">Vapor</a>
+                                </li>
+                                                    </ul>
+                    </div>
+                </div>
+                    </div>
+        <div class="mt-10 border-t pt-6 pb-16 border-gray-200 dark:border-dark-500">
+            <p class="text-xs text-gray-700 dark:text-gray-400">
+                Laravel is a Trademark of Laravel Holdings Inc.<br />
+                Copyright &copy; 2011-2024 Laravel Holdings Inc.
+            </p>
+            <p class="mt-6 text-xs text-gray-700 dark:text-gray-400">
+                Code highlighting provided by <a href="https://torchlight.dev/">Torchlight</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    var algolia_app_id = 'E3MIRNPJH5';
+    var algolia_search_key = '1fa3a8fec06eb1858d6ca137211225c0';
+    var version = '11.x';
+</script>
+
+<script>
+    var _gaq=[['_setAccount','UA-23865777-1'],['_trackPageview']];
+    (function(d,t){
+        var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)
+    }(document,'script'));
+</script>
+
+<!-- HubSpot -->
+<script type="text/javascript" id="hs-script-loader" async defer src="../../../js-na1.hs-scripts.com/45240648.js"></script>
+
+<div class="fixed">
+    <input type="text">
+</div>
+
+</body>
+
+<!-- Mirrored from laravel.com/docs/11.x/scheduling by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 03:14:17 GMT -->
+</html>
